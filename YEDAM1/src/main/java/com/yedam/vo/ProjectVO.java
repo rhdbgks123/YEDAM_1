@@ -1,4 +1,4 @@
-package com.yedam1.vo;
+package com.yedam.vo;
 
 public class ProjectVO { 
 

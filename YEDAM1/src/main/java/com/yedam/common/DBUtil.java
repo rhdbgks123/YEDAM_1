@@ -1,4 +1,4 @@
-package com.yedam1.common;
+package com.yedam.common;
 
 import java.io.IOException;
 import java.io.InputStream;
