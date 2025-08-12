@@ -24,7 +24,6 @@ public class FrontController extends HttpServlet
 	public void init(ServletConfig config) throws ServletException
 	{
 		//map.put("/boardList.do", new Control());
-		System.out.print("test");
 	}
 
 	@Override
