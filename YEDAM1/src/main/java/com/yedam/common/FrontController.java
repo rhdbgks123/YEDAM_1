@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.MainControl;
+import com.yedam.control.MenuControl;
 
 public class FrontController extends HttpServlet
 {
@@ -26,6 +27,7 @@ public class FrontController extends HttpServlet
 	public void init(ServletConfig config) throws ServletException
 	{
 		map.put("/main.do", new MainControl());
+		map.put("/menu.do", new MenuControl());
 	}
 
 	@Override
