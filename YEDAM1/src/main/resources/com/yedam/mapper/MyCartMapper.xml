@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.MyCartMapper">
+
+	<select id="selectCartList" parameterType="String" resultType="com.yedam.vo.MyBasketVO">
+		SELECT  b.user_id,
+		        b.item_code,
+		        b.item_qty,
+		        i.item_name,
+		        i.sale_price,
+		        i.price,
+		        i.delivery_price
+		FROM    tb_basket  b
+		JOIN    tb_item    i  ON i.item_code = b.item_code
+		WHERE   b.user_id = #{userId}
+	</select>
+	
+	
+</mapper>

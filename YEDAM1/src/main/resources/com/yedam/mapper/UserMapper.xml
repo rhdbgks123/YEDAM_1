@@ -9,5 +9,15 @@
 		   and user_pw = #{pw}
 	</select>
 	
+	<select id = "checkUser" parameterType = "string" resultType = "int">
+		select count(1)
+		  from tb_user
+		 where user_id = #{id}
+	</select>
 	
+	<insert id = "insertUser" parameterType = "user" >
+		INSERT INTO TB_USER ( USER_ID, USER_NAME, NICKNAME, BIRTH, IDENTI, EMAIL, PHONE, ADDRESS, ADDRESSDETAIL,
+      						  CREATED_BY, UPDATED_BY) 
+  	    VALUES (#{userId},#{userName},#{nickname},#{birth},#{identi},#{email},#{phone},#{address},#{addressdetail},'고유한','고유한')
+	</insert>
 </mapper>

@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
 
-public class MainControl implements Control {
+public class RegisterUserFormControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO 자동 생성된 메소드 스텁
-		
-		req.getRequestDispatcher("user/main_menu.tiles").forward(req, res);
+		// TODO Auto-generated method stub
+
+		req.getRequestDispatcher("WEB-INF/jsp/register_user_form.jsp").forward(req, res);
 	}
 
 }

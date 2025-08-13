@@ -20,4 +20,24 @@ public class UserServiceImpl implements UserService
 		return mapper.selectUser(id, pw);
 	}
 
+
+	@Override
+	public int checkUserID(String id) {
+		// TODO Auto-generated method stub
+		return mapper.checkUser(id);
+	}
+
+
+	@Override
+	public boolean registerUser(UserVO user) {
+		int r = mapper.insertUser(user);
+		if (r> 0)
+		{
+			session.commit();
+			return true;
+		}
+		
+		return false;
+	}
+
 }

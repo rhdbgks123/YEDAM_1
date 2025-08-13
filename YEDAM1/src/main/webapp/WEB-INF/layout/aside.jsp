@@ -10,9 +10,9 @@
 						<i class="aside_title"></i> <span>My Page</span>
 					</div>
 					<ul>
-						<li><a href="#">회원정보 수정</a></li>
-						<li><a href="#">내 장바구니</a></li>
-						<li><a href="#">구매 내역</a></li>
+						<li><a href="myInfo.do">회원정보 수정</a></li>
+						<li><a href="myCart.do">내 장바구니</a></li>
+						<li><a href="myOrder.do">구매 내역</a></li>
 					</ul>
 				</div>
 			</div>

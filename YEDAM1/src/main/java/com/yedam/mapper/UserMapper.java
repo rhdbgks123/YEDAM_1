@@ -6,4 +6,6 @@ import com.yedam.vo.UserVO;
 
 public interface UserMapper {
 	public UserVO selectUser(@Param("id")String id, @Param("pw")String pw);
+	public int checkUser(String id);
+	public int insertUser(UserVO user);
 }

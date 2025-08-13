@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
 
-public class MainControl implements Control {
+public class UserinfoChangeFormControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO 자동 생성된 메소드 스텁
 		
-		req.getRequestDispatcher("user/main_menu.tiles").forward(req, res);
+		req.getRequestDispatcher("WEB-INF/jsp/user_infochange_form.jsp").forward(req, res);
 	}
 
 }
