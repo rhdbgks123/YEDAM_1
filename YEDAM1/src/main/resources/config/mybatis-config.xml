@@ -7,6 +7,8 @@
 	</settings>
 	<typeAliases>
 		<typeAlias alias="user" type="com.yedam.vo.UserVO" />
+		<typeAlias alias="menu" type="com.yedam.vo.MenuVO" />
+		<typeAlias alias="Item" type="com.yedam.vo.ItemVO" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -22,5 +24,7 @@
 	</environments>
 	<mappers>
 		<mapper resource="com/yedam/mapper/UserMapper.xml" />
+		<mapper resource="com/yedam/mapper/MenuMapper.xml" />
+		<mapper resource="com/yedam/mapper/ItemMapper.xml" />
 	</mappers>
 </configuration>
