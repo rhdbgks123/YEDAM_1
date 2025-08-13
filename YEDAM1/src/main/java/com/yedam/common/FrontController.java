@@ -10,12 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.control.CheckUserControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.MenuControl;
 import com.yedam.control.MenuListControl;
 import com.yedam.control.MyCartControl;
+import com.yedam.control.RegisterUserControl;
+import com.yedam.control.RegisterUserFormControl;
+import com.yedam.control.UserinfoChangeFormControl;
 
 public class FrontController extends HttpServlet
 {
@@ -31,10 +35,22 @@ public class FrontController extends HttpServlet
 	public void init(ServletConfig config) throws ServletException
 	{
 		map.put("/main.do", new MainControl());
-		map.put("/menu.do", new MenuControl());
+		
+		//회원정보
 		map.put("/loginForm.do", new LoginFormControl());
 		map.put("/login.do", new LoginControl());
+		map.put("/registerUserForm.do", new RegisterUserFormControl());
+		map.put("/registUser.do", new RegisterUserControl());
+		map.put("/checkUser.do", new CheckUserControl());
+		map.put("/userinfoChangeForm.do", new UserinfoChangeFormControl());
+		
+		//메인메뉴
+		map.put("/menu.do", new MenuControl());
 		map.put("/menuList.do", new MenuListControl());
+		
+		//상품
+		
+		//마이페이지
 		map.put("/myCart.do", new MyCartControl());
 //		map.put("/myInfo.do", new MyInfoControl());
 //		map.put("/myOrder.do", new MyOrderControl());

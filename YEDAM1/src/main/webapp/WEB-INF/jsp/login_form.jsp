@@ -13,7 +13,7 @@
 
       <div class="login-content login-content-signin" ng-hide="showSignIn">
         <div>
-          <h2>Log in</h2>
+          <h2>로그인</h2>
           <form class="wrapper-box" role="form" action="login.do" method="post">
             <ul>
               <li><input type="text" class="form-control form-control-email" placeholder="아이디" name="id" required></li>
