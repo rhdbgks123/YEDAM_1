@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 
-<script src="/js/myCart.js"></script>
 
 <section class="shoping-cart spad">
 	<div class="container">
@@ -43,12 +42,12 @@
 										<td class="shoping_cart_quantity">
 											<div class="quantity">
 												<div class="pro-qty">
-													<input type="number" name="qty_${c.itemCode }" value="${c.itemQty }" min="1">
+													<input type="number" value="${c.itemQty }" min="1">
 												</div>
 											</div>
 										</td>
 										<td class="shoping_cart_total">
-											<!-- js에서 --> <span class="itemTotal"></span>
+											<span class="itemTotal"></span>
 										</td>
 										<td class="shoping_cart_item_close">
 											<span class="icon_close"></span>
@@ -69,8 +68,8 @@
 					<h5>주문 예상 금액</h5>
 					<ul>
 						<li>총 상품 가격 <span id="selectedItemTotal"></span></li>
-						<li>총 배송비 <span>$454.98</span></li>
-						<li>총 주문 금액 <span>$454.98</span></li>
+						<li>총 배송비 <span id="deliveryPrice"></span></li>
+						<li>총 주문 금액 <span id="orderTotal"></span></li>
 					</ul>
 					<a href="#" class="primary-btn">결제하기</a>
 				</div>
@@ -79,3 +78,6 @@
 	</div>
 </section>
 <!-- Shoping Cart Section End -->
+
+<!--  js 연결 -->
+<script src="<c:url value='/js/myCart.js'/>" defer></script>
