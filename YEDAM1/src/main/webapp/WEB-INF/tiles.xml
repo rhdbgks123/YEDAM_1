@@ -20,10 +20,11 @@
 		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/layout/menu.jsp" />
 		<put-attribute name="body" value="/WEB-INF/layout/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
 	</definition>
 	
 	<definition name="WILDCARD:user/*" extends="app.user">
-		<put-attribute name="body" value="/WEB-INF/html/{1}.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
 	</definition>
 	
 	<!-- 관리자용 tiles -->

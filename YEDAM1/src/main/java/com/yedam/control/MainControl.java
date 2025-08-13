@@ -15,7 +15,7 @@ public class MainControl implements Control {
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO 자동 생성된 메소드 스텁
 		
-		req.getRequestDispatcher("app.user.tiles").forward(req, res);
+		req.getRequestDispatcher("user/main_menu.tiles").forward(req, res);
 	}
 
 }

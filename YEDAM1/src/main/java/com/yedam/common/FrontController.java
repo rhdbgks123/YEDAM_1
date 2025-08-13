@@ -15,6 +15,7 @@ import com.yedam.control.LoginFormControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.MenuControl;
 import com.yedam.control.MenuListControl;
+import com.yedam.control.TodaySaleControl;
 
 public class FrontController extends HttpServlet
 {
@@ -34,6 +35,7 @@ public class FrontController extends HttpServlet
 		map.put("/loginForm.do", new LoginFormControl());
 		map.put("/login.do", new LoginControl());
 		map.put("/menuList.do", new MenuListControl());
+		map.put("/todaySale.do", new TodaySaleControl());
 	}
 
 	@Override
