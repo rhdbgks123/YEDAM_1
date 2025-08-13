@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService
 
 
 	@Override
-	public UserVO userCheck(String id, String pw)
+	public UserVO searchUser(String id, String pw)
 	{
 		return mapper.selectUser(id, pw);
 	}
@@ -31,6 +31,26 @@ public class UserServiceImpl implements UserService
 	@Override
 	public boolean registerUser(UserVO user) {
 		int r = mapper.insertUser(user);
+		if (r> 0)
+		{
+			session.commit();
+			return true;
+		}
+		
+		return false;
+	}
+
+
+	@Override
+	public int checkUserPW(String id, String pw) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapper.selectUserPW(id, pw);
+	}
+
+
+	@Override
+	public boolean modifyUser(UserVO user) {
+		int r = mapper.updateUser(user);
 		if (r> 0)
 		{
 			session.commit();

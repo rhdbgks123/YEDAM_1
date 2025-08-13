@@ -24,7 +24,7 @@
             <input type="checkbox"> Remember me.
           </label>
         </div> -->
-            <a class="outer-link pull-left" href="#/forgot">Forgot Password</a>
+            <a class="outer-link pull-left" href="#/forgot">아이디/비밀번호 찾기</a>
             <button type="submit" class="btn btn-submit btn-default pull-right">로그인</button>
             <input type="button" id="signup" class="btn btn-submit btn-default pull-right" value="회원가입"></input>
           </form>
