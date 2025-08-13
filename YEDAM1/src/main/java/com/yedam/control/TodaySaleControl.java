@@ -18,7 +18,7 @@ public class TodaySaleControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("실행되나?MenuListControl");
+		System.out.println("실행되나?TodaySaleControl");
 		res.setContentType("text/json;charset=utf-8");
 		MainEventService srv = new MainEventServiceImpl();
 		List<ItemVO> list = srv.todaySale();

@@ -3,10 +3,21 @@
 <mapper namespace="com.yedam.mapper.ItemMapper">
 
 	<select id = "todaySaleList" resultType = "Item">
-		   select *
-           from tb_item
-           where sale_price>0 
-     <![CDATA[and rownum<=4]]>	
+     select ag.*
+       from (  
+             select a.item_code,
+                    a.item_name,
+                    a.item_category,
+                    a.sale_price,
+                    a.star_point,
+                    MIN(b.item_image) "item_image"
+                    from tb_item a
+                    join tb_item_image b
+                    on a.item_code = b.item_code
+                    where sale_price>0     
+                    group by a.item_code, a.item_name, a.item_category, a.sale_price, a.star_point
+             ) ag
+  <![CDATA[where rownum<=4]]>	
 	</select>
 	
 	
