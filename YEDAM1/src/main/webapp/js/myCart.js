@@ -8,7 +8,7 @@ document.querySelectorAll('<input[type="number"]').forEach(chk => {
 	chk.addEventListener('change', updateQty);
 });
 
-function updateQty() {
+function updateQty() { 
 document.querySelectorAll('.itemTotal').forEach(span => {
 	let price = document.querySelectorAll('.itemPrice').textContent;
 	let qty = Number(document.querySelectorAll('.pro-qty input[type="number"]').value);
