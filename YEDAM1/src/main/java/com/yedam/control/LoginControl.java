@@ -21,16 +21,17 @@ public class LoginControl implements Control {
 		String psw = req.getParameter("psw");
 		
 		UserService srv = new UserServiceImpl();
-		UserVO user = srv.userCheck(id, psw);
-
+		UserVO user = srv.searchUser(id, psw);
 		if(user == null) 
 		{
 			
 		}
 		else
 		{
+			user.setUserPw("");
 			HttpSession session =  req.getSession();
 			session.setAttribute("logId", id);
+			session.setAttribute("userVO", user);
 			res.sendRedirect("main.do");
 		}
 		

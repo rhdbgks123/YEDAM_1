@@ -16,8 +16,25 @@
 	</select>
 	
 	<insert id = "insertUser" parameterType = "user" >
-		INSERT INTO TB_USER ( USER_ID, USER_NAME, NICKNAME, BIRTH, IDENTI, EMAIL, PHONE, ADDRESS, ADDRESSDETAIL,
+		INSERT INTO TB_USER ( USER_ID, USER_NAME, NICKNAME, USER_PW, BIRTH, IDENTI, EMAIL, PHONE, ADDRESS, ADDRESSDETAIL,
       						  CREATED_BY, UPDATED_BY) 
-  	    VALUES (#{userId},#{userName},#{nickname},#{birth},#{identi},#{email},#{phone},#{address},#{addressdetail},'고유한','고유한')
+  	    VALUES (#{userId},#{userName},#{nickname}, #{userPw}, #{birth},#{identi},#{email},#{phone},#{address},#{addressdetail},'고유한','고유한')
 	</insert>
+	
+		<select id = "selectUserPW" parameterType = "string" resultType = "int">
+		select count(1)
+		  from tb_user
+		 where user_id = #{id}
+		   and user_pw = #{pw}
+	</select>
+	<update id="updateUser" parameterType = "user">
+		UPDATE TB_USER
+		   SET NICKNAME = #{nickname}
+		     , USER_PW = #{userPw}
+		     , EMAIL = #{email}
+		     , PHONE = #{phone}
+		     , ADDRESS = #{address}
+		     , ADDRESSDETAIL = #{addressdetail}
+		 WHERE USER_ID = #{userId}
+	</update>
 </mapper>

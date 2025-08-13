@@ -12,7 +12,7 @@
 		<div class="register-content" >
 			<h2>회원정보 수정</h2>
 			<form class="wrapper-box" id="registerForm" name="registerForm"
-				action="infochange.do" method="post">
+				action="userinfochange.do" method="post">
 
 				<ul>
 					<li>
@@ -30,20 +30,20 @@
 	                </li>
 					<li>
 						<label for="nickname">닉네임<span class="redaccent">*</span></label>
-						<input type="text" id="nickname" name="nickname" required>
+						<input type="text" id="nickname" name="nickname" required value="${userVO.nickname}">
 					</li>
 					<li>
-						<label for="phone">휴대폰</label> <input type="tel" id="phone" name="phone" placeholder="'-' 빼고 숫자만 입력하세요.">
+						<label for="phone">휴대폰</label> <input type="tel" id="phone" name="phone" placeholder="'-' 빼고 숫자만 입력하세요." value="${userVO.phone}">
 					</li>
 					<li>
-						<label for="userEmail">이메일</label> <input type="email" id="userEmail" name="userEmail">
+						<label for="userEmail">이메일</label> <input type="email" id="userEmail" name="userEmail"value="${userVO.email}">
 					</li>
 					<li>
-						<label for="address">주소</label> <input type="text" id="address" name="address" style="width: 400px;">
+						<label for="address">주소</label> <input type="text" id="address" name="address" style="width: 400px;"value="${userVO.address}">
 						<button type="button" id="addressSearch" style="width: 100px; margin: 0;">주소검색</button>
 					</li>
 					<li>
-						<label for="addressdetail">상세주소</label> <input type="text" id="addressdetail" name="addressdetail" style="width: 500px;">
+						<label for="addressdetail">상세주소</label> <input type="text" id="addressdetail" name="addressdetail" style="width: 500px;"value="${userVO.addressdetail}">
 					</li>
 					<li>
 						<div id="regbutton">
@@ -60,6 +60,6 @@
 	</div>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script type="text/javascript" src="js/user_infochnage_form.js"></script>
+	<script type="text/javascript" src="js/user_infochange_form.js"></script>
 </body>
 </html>
