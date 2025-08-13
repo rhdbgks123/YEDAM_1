@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
+
+<script src="/js/myCart.js"></script>
 
 <section class="shoping-cart spad">
         <div class="container">
@@ -22,33 +25,34 @@
                             
                             <form id="cartForm">
                             <tbody>
-                            <c: forEach var="s" items="">
-                            <input type="checkbox" name="selectItem" value="${itemCode }">
+                            <c:forEach var="c" items="${cartList }">
                                 <tr>
+                     		        <input type="checkbox" name="selectItem" value="${c.itemCode }">
                                     <td class="shoping_cart_item">
-                                        <img src="img/cart/cart-1.jpg" alt="${itemName }">
-                                        <h5>${itemName }</h5>
+                                        <img src="img/cart/cart-1.jpg" alt="${c.itemName }">
+                                        <h5>${c.itemName }</h5>
                                     </td>
                                     <td class="shoping_cart_price">
-                                    <!-- js에서 -->
-                                    	<span id="itemPrice"></span>
+                                    	<span class="itemPrice">
+                                    		<fmt:formatNumber value="${c.salePrice != 0 ? c.salePrice : c.price}" type="currency"/>
+                                    	</span>
                                     </td>
                                     <td class="shoping_cart_quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="number" value="1">
+                                                <input type="number" name="qty_${c.itemCode }" value="${c.itemQty }" min="1">
                                             </div>
                                         </div>
                                     </td>
                                     <td class="shoping_cart_total">
                                    		<!-- js에서 -->
-                                        <sapn id="itemTotal"></sapn>
+                                        <span class="itemTotal"></span>
                                     </td>
-                                    <td class="shoping__cart__item__close">
+                                    <td class="shoping_cart_item_close">
                                         <span class="icon_close"></span>
                                     </td>
                                 </tr>
-                            </c: forEach>
+                            </c:forEach>
                             </tbody>
                             </form>
                             
