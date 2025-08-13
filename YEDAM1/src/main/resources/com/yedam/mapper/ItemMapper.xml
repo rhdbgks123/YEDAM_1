@@ -5,7 +5,8 @@
 	<select id = "todaySaleList" resultType = "Item">
 		   select *
            from tb_item
-           where sale_price>0 and rownum<=4	
+           where sale_price>0 
+     <![CDATA[and rownum<=4]]>	
 	</select>
 	
 	
