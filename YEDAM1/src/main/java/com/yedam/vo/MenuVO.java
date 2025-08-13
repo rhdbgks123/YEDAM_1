@@ -4,7 +4,7 @@ import java.util.Date;
 
 import lombok.Data;
 @Data
-public class menuVO {
+public class MenuVO {
 	private String menuCode;
 	private String menuName;
 	private String progPath;
