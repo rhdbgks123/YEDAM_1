@@ -16,6 +16,7 @@ import com.yedam.control.LoginFormControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.MenuControl;
 import com.yedam.control.MenuListControl;
+import com.yedam.control.MyCartControl;
 import com.yedam.control.RegisterUserControl;
 import com.yedam.control.RegisterUserFormControl;
 import com.yedam.control.UserinfoChangeFormControl;
@@ -50,7 +51,9 @@ public class FrontController extends HttpServlet
 		//상품
 		
 		//마이페이지
-		
+		map.put("/myCart.do", new MyCartControl());
+//		map.put("/myInfo.do", new MyInfoControl());
+//		map.put("/myOrder.do", new MyOrderControl());
 	}
 
 	@Override
