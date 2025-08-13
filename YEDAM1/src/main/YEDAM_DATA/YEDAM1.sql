@@ -37,7 +37,6 @@ DROP TABLE TB_USER;
 CREATE TABLE TB_MENU (
     MENU_CODE VARCHAR2(20) NOT NULL,
     MENU_NAME VARCHAR2(30) NOT NULL,
-    PROG_PATH VARCHAR2(100) NOT NULL,
     CREATE_DATE DATE DEFAULT SYSDATE,
     CREATED_BY VARCHAR2(50),
     UPDATE_DATE DATE DEFAULT SYSDATE,
@@ -47,7 +46,6 @@ CREATE TABLE TB_MENU (
 
 COMMENT ON COLUMN TB_MENU.MENU_CODE IS '메뉴코드';
 COMMENT ON COLUMN TB_MENU.MENU_NAME IS '메뉴명';
-COMMENT ON COLUMN TB_MENU.PROG_PATH IS '프로그램 경로';
 COMMENT ON COLUMN TB_MENU.CREATE_DATE IS '생성일자';
 COMMENT ON COLUMN TB_MENU.CREATED_BY IS '생성자';
 COMMENT ON COLUMN TB_MENU.UPDATE_DATE IS '수정일자';
@@ -89,6 +87,7 @@ COMMENT ON COLUMN TB_USER.UPDATED_BY IS '수정자';
 CREATE TABLE TB_ITEM (
     ITEM_CODE VARCHAR2(30) NOT NULL,
     ITEM_NAME VARCHAR2(100) NOT NULL,
+    ITEM_CATEGORY VARCHAR2(20) NOT NULL,
     SALE_PRICE NUMBER DEFAULT 0,
     PRICE NUMBER DEFAULT 0,
     STAR_POINT NUMBER DEFAULT 0,
@@ -104,6 +103,7 @@ CREATE TABLE TB_ITEM (
 
 COMMENT ON COLUMN TB_ITEM.ITEM_CODE IS '상품코드';
 COMMENT ON COLUMN TB_ITEM.ITEM_NAME IS '상품명';
+COMMENT ON COLUMN TB_ITEM.ITEM_CATEGORY IS '상품분류';
 COMMENT ON COLUMN TB_ITEM.SALE_PRICE IS '할인단가';
 COMMENT ON COLUMN TB_ITEM.PRICE IS '단가';
 COMMENT ON COLUMN TB_ITEM.STAR_POINT IS '별점';
@@ -295,31 +295,33 @@ COMMENT ON COLUMN TB_ORDERDETAIL.UPDATE_DATE IS '수정일자';
 COMMENT ON COLUMN TB_ORDERDETAIL.UPDATED_BY IS '수정자';
 
 
--- Appliance-themed test data with specific relationships (Oracle)
--- Assumes tables & constraints already created per your schema.
--- Counts/Rules:
--- - TB_ITEM: 100 items
--- - Each ITEM has: 3 SPECS, 1 ITEM_IMAGE, 3 REVIEWS, each REVIEW has 3 REVIEW_IMAGES
--- - TB_USER: assume 100 users already or will be generated here (100 rows)
--- - TB_LAST_ITEM: 3 items per user
--- - TB_BASKET: 3~5 items per user
--- - TB_MENU: 100 menus, PROG_PATH holds category in English (e.g., /TV, /COMPUTER)
--- - TB_ORDER: 100 orders; each has 3~5 ORDERDETAIL rows
 
--- 0) Utility: categories & helper mapping is done by MOD arithmetic inline.
+-- Oracle Test Data Script - v7
+-- Update: TB_ITEM.ITEM_NAME is now mapped to TB_ITEM.ITEM_CATEGORY (Korean name taken from TB_MENU).
+-- Other logic retained from v6.
 
--- 1) TB_MENU (100 rows; category in PROG_PATH)
+-- 1) TB_MENU (10 rows) - MENU_CODE = English token; PROG_PATH omitted
 DECLARE
-  v_cats  SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST(
-    'TV','COMPUTER','REFRIGERATOR','WASHER','AIRCON','CLEANER','MICROWAVE','RICECOOKER','DISHWASHER','DRYER','AIRPURIFIER','AUDIO','PROJECTOR','ROUTER','MONITOR'
-  );
+  TYPE t_cat IS RECORD (code VARCHAR2(30), name_kr VARCHAR2(50));
+  TYPE t_cat_list IS TABLE OF t_cat INDEX BY PLS_INTEGER;
+  v t_cat_list;
 BEGIN
-  FOR i IN 1..100 LOOP
-    INSERT INTO TB_MENU (MENU_CODE, MENU_NAME, PROG_PATH, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY)
+  v(1)  := t_cat('TV',           '텔레비전');
+  v(2)  := t_cat('COMPUTER',     '컴퓨터');
+  v(3)  := t_cat('REFRIGERATOR', '냉장고');
+  v(4)  := t_cat('WASHER',       '세탁기');
+  v(5)  := t_cat('AIRCON',       '에어컨');
+  v(6)  := t_cat('VACUUM',       '청소기');
+  v(7)  := t_cat('MICROWAVE',    '전자레인지');
+  v(8)  := t_cat('AIRPURIFIER',  '공기청정기');
+  v(9)  := t_cat('SPEAKER',      '스피커');
+  v(10) := t_cat('PRINTER',      '프린터');
+
+  FOR i IN 1..10 LOOP
+    INSERT INTO TB_MENU (MENU_CODE, MENU_NAME, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY)
     VALUES (
-      'M' || TO_CHAR(i, 'FM000'),
-      '메뉴' || i,
-      '/' || v_cats( MOD(i-1, v_cats.COUNT) + 1 ),
+      v(i).code,
+      v(i).name_kr,
       SYSDATE - MOD(i, 30),
       'seed',
       SYSDATE - MOD(i, 20),
@@ -329,9 +331,33 @@ BEGIN
 END;
 /
  
--- 2) TB_USER (100 rows)
+-- 2) TB_USER (100 rows) with KR-style BIRTH/IDENTI
+DECLARE
+  v_date   DATE;
+  v_year   NUMBER;
+  v_yy     VARCHAR2(2);
+  v_mm     VARCHAR2(2);
+  v_dd     VARCHAR2(2);
+  v_gender NUMBER;
+  v_first  CHAR(1);
+  v_tail6  VARCHAR2(6);
 BEGIN
   FOR i IN 1..100 LOOP
+    v_date := DATE '1970-01-01' + MOD(i*73, (DATE '2005-12-31' - DATE '1970-01-01'));
+    v_year := TO_NUMBER(TO_CHAR(v_date, 'YYYY'));
+    v_yy := TO_CHAR(v_date, 'YY');
+    v_mm := TO_CHAR(v_date, 'MM');
+    v_dd := TO_CHAR(v_date, 'DD');
+
+    v_gender := CASE WHEN MOD(i,2)=0 THEN 1 ELSE 2 END;
+    IF v_year < 2000 THEN
+      v_first := CASE v_gender WHEN 1 THEN '1' ELSE '2' END;
+    ELSE
+      v_first := CASE v_gender WHEN 1 THEN '3' ELSE '4' END;
+    END IF;
+
+    v_tail6 := LPAD(MOD(i*123457, 1000000), 6, '0');
+
     INSERT INTO TB_USER (
       USER_ID, USER_NAME, NICKNAME, BIRTH, IDENTI, EMAIL, PHONE, ADDRESS, ADDRESSDETAIL,
       CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY
@@ -339,8 +365,8 @@ BEGIN
       'user' || i,
       '사용자' || i,
       '닉네임' || i,
-      TO_CHAR(750101 + MOD(i*37, 490101)), -- pseudo 6-digit
-      LPAD(MOD(i*123457, 10000000), 7, '0'),
+      v_yy || v_mm || v_dd,
+      v_first || v_tail6,
       'user' || i || '@example.com',
       '010-' || LPAD(MOD(i*37, 9999),4,'0') || '-' || LPAD(MOD(i*53, 9999),4,'0'),
       '서울시 강남구 테헤란로 ' || MOD(i, 200),
@@ -354,20 +380,28 @@ BEGIN
 END;
 /
  
--- 3) TB_ITEM: 100 rows with appliance categories in the name
+-- 3) TB_ITEM (100 rows) - ITEM_NAME mapped to ITEM_CATEGORY (Korean name from TB_MENU)
 DECLARE
-  v_names SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST(
-    '냉장고','세탁기','TV','에어컨','청소기','전자레인지','전기밥솥','식기세척기','건조기','공기청정기','컴퓨터','모니터','프린터','라우터','프로젝터'
+  v_cats SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST(
+    'TV','COMPUTER','REFRIGERATOR','WASHER','AIRCON','VACUUM','MICROWAVE','AIRPURIFIER','SPEAKER','PRINTER'
   );
+  v_cat   VARCHAR2(30);
+  v_namek VARCHAR2(50);
 BEGIN
   FOR i IN 1..100 LOOP
+    v_cat := v_cats( MOD(i-1, v_cats.COUNT) + 1 );
+
+    -- fetch Korean name from TB_MENU for mapping
+    SELECT MENU_NAME INTO v_namek FROM TB_MENU WHERE MENU_CODE = v_cat;
+
     INSERT INTO TB_ITEM (
-      ITEM_CODE, ITEM_NAME, SALE_PRICE, PRICE, STAR_POINT, DELIVERY, DELIVERY_PRICE, DESCRIPTION,
+      ITEM_CODE, ITEM_NAME, ITEM_CATEGORY, SALE_PRICE, PRICE, STAR_POINT, DELIVERY, DELIVERY_PRICE, DESCRIPTION,
       CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY
     ) VALUES (
       'I' || TO_CHAR(i, 'FM000'),
-      v_names( MOD(i-1, v_names.COUNT) + 1 ) || ' 모델' || i,
-      600000 + (i * 1000),
+      v_namek || ' 모델' || i,         -- ITEM_NAME aligned with ITEM_CATEGORY
+      v_cat,                            -- ITEM_CATEGORY matches TB_MENU.MENU_CODE
+      CASE WHEN MOD(i,7)=0 THEN 0 ELSE 600000 + (i * 1000) END,
       700000 + (i * 1500),
       MOD(i, 5) + 1,
       '택배',
@@ -382,64 +416,69 @@ BEGIN
 END;
 /
  
--- 4) TB_ITEM_SPEC: 3 specs per item
--- Examples by item type: refrigerator -> capacity 300/400/500L, TV -> UHD/QHD/4K, others generic variants
+-- 4) TB_ITEM_SPEC: consistent prefix per ITEM_CODE (S1~S3)
+-- 냉장고: 용량 300/400/500L, TV: 해상도 UHD/QHD/4K, others: one of {소비전력,에너지등급,색상}
 DECLARE
-  v_type VARCHAR2(30);
-  v_item VARCHAR2(6);
+  v_type   VARCHAR2(30);
+  v_item   VARCHAR2(6);
+  v_prefix VARCHAR2(20);
+  v_val1   VARCHAR2(40);
+  v_val2   VARCHAR2(40);
+  v_val3   VARCHAR2(40);
+  v_pick   NUMBER;
 BEGIN
   FOR i IN 1..100 LOOP
     v_item := 'I' || TO_CHAR(i, 'FM000');
-    -- Derive type from item name to pick spec set
     SELECT SUBSTR(ITEM_NAME, 1, INSTR(ITEM_NAME, ' ') - 1)
-      INTO v_type
-      FROM TB_ITEM WHERE ITEM_CODE = v_item;
+      INTO v_type FROM TB_ITEM WHERE ITEM_CODE = v_item;
 
-    -- Spec 1
-    INSERT INTO TB_ITEM_SPEC (ITEM_CODE, SPEC_CODE, SPEC_NAME, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY)
-    VALUES (v_item, 'S1',
-      CASE v_type
-        WHEN '냉장고' THEN '용량: 300L'
-        WHEN 'TV'    THEN '해상도: UHD'
-        ELSE '색상: 실버'
-      END,
-      SYSDATE - MOD(i,40), 'seed', SYSDATE - MOD(i,30), 'seed');
+    IF v_type = '냉장고' THEN
+      v_prefix := '용량'; v_val1 := '300L'; v_val2 := '400L'; v_val3 := '500L';
+    ELSIF v_type = 'TV' THEN
+      v_prefix := '해상도'; v_val1 := 'UHD'; v_val2 := 'QHD'; v_val3 := '4K';
+    ELSE
+      v_pick := MOD(i,3);
+      IF v_pick = 0 THEN
+        v_prefix := '소비전력';
+        v_val1 := (80 + MOD(i,20)) || 'W';
+        v_val2 := (90 + MOD(i,20)) || 'W';
+        v_val3 := (100 + MOD(i,20)) || 'W';
+      ELSIF v_pick = 1 THEN
+        v_prefix := '에너지등급';
+        v_val1 := '1등급'; v_val2 := '2등급'; v_val3 := '3등급';
+      ELSE
+        v_prefix := '색상';
+        v_val1 := '실버'; v_val2 := '블랙'; v_val3 := '화이트';
+      END IF;
+    END IF;
 
-    -- Spec 2
     INSERT INTO TB_ITEM_SPEC (ITEM_CODE, SPEC_CODE, SPEC_NAME, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY)
-    VALUES (v_item, 'S2',
-      CASE v_type
-        WHEN '냉장고' THEN '용량: 400L'
-        WHEN 'TV'    THEN '해상도: QHD'
-        ELSE '소비전력: ' || (80 + MOD(i,60)) || 'W'
-      END,
-      SYSDATE - MOD(i,39), 'seed', SYSDATE - MOD(i,29), 'seed');
-
-    -- Spec 3
+    VALUES (v_item, 'S1', v_prefix || ' : ' || v_val1, SYSDATE - MOD(i,40), 'seed', SYSDATE - MOD(i,30), 'seed');
     INSERT INTO TB_ITEM_SPEC (ITEM_CODE, SPEC_CODE, SPEC_NAME, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY)
-    VALUES (v_item, 'S3',
-      CASE v_type
-        WHEN '냉장고' THEN '용량: 500L'
-        WHEN 'TV'    THEN '해상도: 4K'
-        ELSE '에너지등급: ' || (1 + MOD(i,5)) || '등급'
-      END,
-      SYSDATE - MOD(i,38), 'seed', SYSDATE - MOD(i,28), 'seed');
+    VALUES (v_item, 'S2', v_prefix || ' : ' || v_val2, SYSDATE - MOD(i,39), 'seed', SYSDATE - MOD(i,29), 'seed');
+    INSERT INTO TB_ITEM_SPEC (ITEM_CODE, SPEC_CODE, SPEC_NAME, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY)
+    VALUES (v_item, 'S3', v_prefix || ' : ' || v_val3, SYSDATE - MOD(i,38), 'seed', SYSDATE - MOD(i,28), 'seed');
   END LOOP;
 END;
 /
  
--- 5) TB_ITEM_IMAGE: 1 image per item
+-- 5) TB_ITEM_IMAGE: 3~5 images per item
+DECLARE
+  v_cnt NUMBER;
 BEGIN
   FOR i IN 1..100 LOOP
-    INSERT INTO TB_ITEM_IMAGE (ITEM_CODE, ITEM_IMAGE, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY)
-    VALUES ('I' || TO_CHAR(i,'FM000'), 'item_' || TO_CHAR(i,'FM000') || '.jpg',
-            SYSDATE - MOD(i,20), 'seed', SYSDATE - MOD(i,10), 'seed');
+    v_cnt := 3 + MOD(i,3);
+    FOR img IN 1..v_cnt LOOP
+      INSERT INTO TB_ITEM_IMAGE (ITEM_CODE, ITEM_IMAGE, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY)
+      VALUES ('I' || TO_CHAR(i,'FM000'),
+              'item_' || TO_CHAR(i,'FM000') || '_' || img || '.jpg',
+              SYSDATE - MOD(i + img,20), 'seed', SYSDATE - MOD(i + img,10), 'seed');
+    END LOOP;
   END LOOP;
 END;
 /
  
 -- 6) TB_ITEM_REVIEW: 3 reviews per item
--- REVIEW_SEQ is unique: seq = (item_index-1)*3 + review_index
 BEGIN
   FOR i IN 1..100 LOOP
     FOR r IN 1..3 LOOP
@@ -448,7 +487,7 @@ BEGIN
       ) VALUES (
         (i-1)*3 + r,
         'I' || TO_CHAR(i,'FM000'),
-        3 + MOD(i + r, 3), -- 3~5
+        3 + MOD(i + r, 3),
         '리뷰 내용 - 아이템 ' || i || ', 리뷰 ' || r,
         SYSDATE - MOD(i + r, 70),
         'user' || (1 + MOD(i + r, 100)),
@@ -499,25 +538,34 @@ BEGIN
 END;
 /
  
--- 9) TB_ORDERDETAIL: 3~5 items per order
--- ORDERDETAIL_NO runs from 1..N per order; ITEM_PRICE snapshot from TB_ITEM
+-- 9) TB_ORDERDETAIL: 3~5 items per order; ITEM_PRICE rule & SPEC FK kept
 DECLARE
-  v_cnt NUMBER;
-  v_code VARCHAR2(6);
+  v_cnt   NUMBER;
+  v_code  VARCHAR2(6);
+  v_spec  VARCHAR2(2);
+  v_price NUMBER;
 BEGIN
   FOR i IN 1..100 LOOP
-    v_cnt := 3 + MOD(i,3); -- 3..5
+    v_cnt := 3 + MOD(i,3);
     FOR d IN 1..v_cnt LOOP
       v_code := 'I' || TO_CHAR(1 + MOD(i*7 + d, 100), 'FM000');
+      v_spec := CASE MOD(d-1,3) WHEN 0 THEN 'S1' WHEN 1 THEN 'S2' ELSE 'S3' END;
+
+      SELECT NVL(NULLIF(SALE_PRICE,0), PRICE)
+        INTO v_price
+        FROM TB_ITEM WHERE ITEM_CODE = v_code;
+
       INSERT INTO TB_ORDERDETAIL (
-        ORDER_NO, ORDERDETAIL_NO, ITEM_CODE, ITEM_QTY, ITEM_PRICE, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY
+        ORDER_NO, ORDERDETAIL_NO, ITEM_CODE, ITEM_QTY, ITEM_PRICE, SPEC_CODE,
+        CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY
       )
       VALUES (
         i,
         d,
         v_code,
         1 + MOD(i + d, 3),
-        (SELECT PRICE FROM TB_ITEM WHERE ITEM_CODE = v_code),
+        v_price,
+        v_spec,
         SYSDATE - MOD(i + d, 85),
         'seed',
         SYSDATE - MOD(i + d, 75),
@@ -534,7 +582,7 @@ DECLARE
   v_code VARCHAR2(6);
 BEGIN
   FOR u IN 1..100 LOOP
-    v_cnt := 3 + MOD(u,3); -- 3..5
+    v_cnt := 3 + MOD(u,3);
     FOR b IN 1..v_cnt LOOP
       v_code := 'I' || TO_CHAR(1 + MOD(u*11 + b, 100), 'FM000');
       INSERT INTO TB_BASKET (USER_ID, ITEM_CODE, ITEM_QTY, CREATE_DATE, CREATED_BY, UPDATE_DATE, UPDATED_BY)
