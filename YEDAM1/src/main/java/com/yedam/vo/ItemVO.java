@@ -12,4 +12,6 @@ public class ItemVO {
 	private String delivery;
 	private String deliveryPrice;
 	private String description;	
+	private String itemCategory;	
+	private String itemImage;	
 }
