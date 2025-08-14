@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	// 선택된 상품들의 총 금액
+	let deliveryPrice = 0;
 	function updateSelectedTotal() {
 		let sum = 0;
 		let checked = document.querySelectorAll('input[name="selectItem"]:checked')
@@ -33,13 +34,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.querySelector('#selectedItemTotal').textContent = formatNumber(sum) + '원';
 
 		if (checked.length == 0) {
-			let deliveryPrice = 0;
+			deliveryPrice = 0;
 		} else {
-			deliveryPrice = sum < 50000 ? 3000 : 0;
+			deliveryPrice = sum < 5000000 ? 3000 : 0;
 			document.querySelector('#deliveryPrice').innerText = deliveryPrice + '원';
 		}
 
-		document.querySelector('#orderTotal').innerText = deliveryPrice + sum + '원';
+		document.querySelector('#orderTotal').innerText = formatNumber(deliveryPrice + sum) + '원';
 
 
 	}
@@ -92,9 +93,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	if (checkAll) checkAll.checked = itemChecks.length > 0;
 
 
-	if (typeof updateSelectedTotal === 'function') updateSelectedTotal();
+	if (typeof updateSelectedTotal == 'function') updateSelectedTotal();
 
-
+	
 	itemChecks.forEach(chk => {
 		chk.addEventListener('change', () => {
 			let allChecked = itemChecks.length > 0 && itemChecks.every(i => i.checked);
@@ -103,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 
-
+	// 모두 체크
 	if (checkAll) {
 		checkAll.addEventListener('change', () => {
 			let turnOn = checkAll.checked;
@@ -117,5 +118,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		updateRowTotal(row);
 		updateSelectedTotal();
 	});
-
+	
+	// 결제하기 컨트롤 방식
+	document.querySelector('.primary-btn').addEventListener('click', function(){
+		let selected = document.querySelectorAll('input[name="selectItem"]:checked');
+		
+		if(selected.length == 0){
+			alert('상품을 선택하세요');
+			return;
+		}
+		
+		document.querySelector('#cartForm').submit();
+		
+	})
+	
 });
