@@ -14,32 +14,32 @@ import com.yedam.common.Control;
 import com.yedam.service.UserService;
 import com.yedam.service.UserServiceImpl;
 
-public class CheckUserControl implements Control {
+public class RemoveSingControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String uid = req.getParameter("userId");
+		
 		UserService srv = new UserServiceImpl();
 		
-		String userId = req.getParameter("userId");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		int check = srv.checkUserID(userId);
-		// DB처리 -> 반환
-		if(check > 0 )
+		
+		boolean check = srv.removeUserSign(uid);
+		
+		if(check)
 		{
 			map.put("retCode", "OK");
-			
-			//res.getWriter().print("{\"retCode\":\"OK\"}");
 		}
 		else
 		{
 			map.put("retCode", "NG");
-			//res.getWriter().print("{\"retCode\":\"NG\"}");
 		}
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(map);
 		res.getWriter().print(json);
-
+		
 	}
 
 }

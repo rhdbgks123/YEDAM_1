@@ -9,4 +9,7 @@ public interface UserService
 	public int checkUserPW(String id, String pw);
 	public boolean registerUser(UserVO user);
 	public boolean modifyUser(UserVO user);
+	public boolean checkUserMail(UserVO user, String signkey);
+	public UserVO searchUserId(UserVO user);
+	public boolean removeUserSign(String userId);
 }
