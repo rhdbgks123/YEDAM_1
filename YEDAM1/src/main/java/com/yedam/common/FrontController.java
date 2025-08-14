@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.control.CheckUserControl;
 import com.yedam.control.CheckUserPwControl;
 import com.yedam.control.ItemDetailViewControl;
+import com.yedam.control.FindUserControl;
+import com.yedam.control.FindUserFormControl;
+import com.yedam.control.ItemListFormControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.MainControl;
@@ -25,7 +28,9 @@ import com.yedam.control.RegisterUserFormControl;
 import com.yedam.control.TodayHotControl;
 import com.yedam.control.TodaySaleControl;
 import com.yedam.control.UserinfoChangeControl;
-import com.yedam.control.UserinfoChangeFormControl;
+import com.yedam.control.RemoveSingControl;
+import com.yedam.control.SearchItemListControl;
+import com.yedam.control.SendMailUserInfoControl;
 
 public class FrontController extends HttpServlet
 {
@@ -51,6 +56,10 @@ public class FrontController extends HttpServlet
 		map.put("/userinfoChangeForm.do", new UserinfoChangeFormControl());
 		map.put("/checkUserPw.do", new CheckUserPwControl());
 		map.put("/userinfochange.do", new UserinfoChangeControl());
+		map.put("/findUserForm.do", new FindUserFormControl());
+		map.put("/findUser.do", new FindUserControl());
+		map.put("/removeSign.do", new RemoveSingControl());
+		map.put("/sendMailUserInfo.do", new SendMailUserInfoControl());
 		
 		//메인메뉴
 		map.put("/menu.do", new MenuControl());
@@ -61,6 +70,8 @@ public class FrontController extends HttpServlet
 		map.put("/itemDetailView.do", new ItemDetailViewControl());
 		
 		//상품
+		map.put("/searchItemList.do", new SearchItemListControl());
+		map.put("/itemListForm.do", new ItemListFormControl());
 		
 		//마이페이지
 		map.put("/myCart.do", new MyCartControl());
