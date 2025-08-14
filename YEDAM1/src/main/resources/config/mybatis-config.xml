@@ -27,5 +27,6 @@
 		<mapper resource="com/yedam/mapper/MenuMapper.xml" />
 		<mapper resource="com/yedam/mapper/ItemMapper.xml" />
 		<mapper resource="com/yedam/mapper/MyCartMapper.xml" />
+		<mapper resource="com/yedam/mapper/OrderMapper.xml" />
 	</mappers>
 </configuration>

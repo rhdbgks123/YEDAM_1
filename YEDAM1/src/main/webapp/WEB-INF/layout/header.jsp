@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<link rel="stylesheet" href="/css/style.css">
    <header class="header">
         <div class="header__top">
             <div class="container">
@@ -13,7 +16,16 @@
                         <div class="header__top__right">
                             
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                            	<c:choose>
+                            	<c:when test="${empty logId }">
+                                <a href="loginForm.do"><i class="fa fa-user"></i> Login</a>
+                                </c:when>
+                                <c:otherwise>
+                                <a href="#"><i class="fa fa-user"></i> 마이페이지</a>
+                                <a href="myCart.do"><i class="fa fa-user"></i> 장바구니</a>
+                                <a href="#"><i class="fa fa-user"></i> 로그아웃</a>
+                                </c:otherwise>
+                            	</c:choose>
                             </div>
                         </div>
                     </div>

@@ -395,12 +395,14 @@ ol {
 
 .header__top__right__auth {
 	display: inline-block;
+	float : right;
 }
 
 .header__top__right__auth a {
-	display: block;
+	display: inline-block;
 	font-size: 14px;
 	color: #1c1c1c;
+	margin: 10px
 }
 
 .header__top__right__auth a i {
