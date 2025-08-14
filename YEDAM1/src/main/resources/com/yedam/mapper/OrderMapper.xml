@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.OrderMapper">
+
+	<select id="selectItem" parameterType="String"
+		resultType="com.yedam.vo.MyBasketVO">
+		SELECT b.item_code,
+		b.item_qty,
+		i.sale_price,
+		i.price
+		FROM TB_BASKET b
+		JOIN TB_ITEM i ON i.item_code = b.item_code
+		WHERE
+		b.user_id = #{userId}
+	</select>
+
+	<select id="nextOrderNo" resultType="String">
+		SELECT 'WO' ||
+		TO_CHAR(SYSDATE, 'YYMMDD') ||
+		LPAD(ORDER_SEQ.NEXTVAL, 5, '0')
+		FROM dual
+	</select>
+
+	<insert id="insertOrder" parameterType="com.yedam.vo.OrderVO">
+		INSERT INTO TB_ORDER
+		(order_no, user_id, order_date)
+		VALUES (#{orderNo}, #{userId},
+		#{orderDate})
+	</insert>
+
+	<insert id="insertOrderDetail"
+		parameterType="com.yedam.vo.OrderDetailVO">
+		INSERT INTO TB_ORDERDETAIL (order_no, ORDERDETAIL_NO,
+		item_code, item_qty, item_price)
+		VALUES (#{orderNo}, #{orderDetailNo},
+		#{itemCode}, #{itemQty}, #{itemPrice})
+	</insert>
+
+	<select id="selectOrderTotal" resultType="int">
+		SELECT sum(item_qty *
+		item_price)
+		FROM TB_ORDERDETAIL
+		WHERE order_no = #{orderNo}
+	</select>
+
+	<delete id="deleteBasket" parameterType="String">
+		DELETE FROM TB_BASKET
+		WHERE user_id = #{userId}
+		AND   item_code = #{itemCode}
+	</delete>
+
+	<select id="selectBasketItem" parameterType="map" resultType="com.yedam.vo.MyBasketVO">
+		SELECT *
+		FROM TB_BASKET
+		WHERE user_id = #{userId}
+		AND item_code = #{itemCode}
+	</select>
+
+</mapper>
