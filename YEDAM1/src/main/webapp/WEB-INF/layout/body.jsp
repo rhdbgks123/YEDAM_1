@@ -12,9 +12,8 @@
                         </div>
                         <ul>
                         <!--  <li><a href="#">Fresh Meat</a></li> -->
-                           <li><a href="#">test</a></li>
-                        <c:forEach var="board" items="${board_list }">
-                        </c:forEach>
+                           
+                        
                            
                             
                         </ul>

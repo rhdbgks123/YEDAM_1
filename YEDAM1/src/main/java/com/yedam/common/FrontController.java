@@ -12,16 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.CheckUserControl;
 import com.yedam.control.CheckUserPwControl;
+import com.yedam.control.ItemDetailViewControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.MenuControl;
 import com.yedam.control.MenuListControl;
-import com.yedam.control.TodaySaleControl;
-import com.yedam.control.UserinfoChangeControl;
 import com.yedam.control.MyCartControl;
+import com.yedam.control.OnClickMenuControl;
 import com.yedam.control.RegisterUserControl;
 import com.yedam.control.RegisterUserFormControl;
+import com.yedam.control.TodayHotControl;
+import com.yedam.control.TodaySaleControl;
+import com.yedam.control.UserinfoChangeControl;
 import com.yedam.control.UserinfoChangeFormControl;
 
 public class FrontController extends HttpServlet
@@ -53,6 +56,9 @@ public class FrontController extends HttpServlet
 		map.put("/menu.do", new MenuControl());
 		map.put("/menuList.do", new MenuListControl());
 		map.put("/todaySale.do", new TodaySaleControl());
+		map.put("/todayHot.do", new TodayHotControl());
+		map.put("/onClickMenu.do", new OnClickMenuControl());
+		map.put("/itemDetailView.do", new ItemDetailViewControl());
 		
 		//상품
 		

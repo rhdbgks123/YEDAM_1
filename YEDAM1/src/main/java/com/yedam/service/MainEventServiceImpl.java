@@ -17,4 +17,19 @@ public class MainEventServiceImpl implements MainEventService {
 		return mapper.todaySaleList();
 	}
 
+	@Override
+	public List<ItemVO> todayHot() {		
+		return mapper.todayHotList();
+	}
+
+	@Override
+	public List<ItemVO> onClickMenuList(String menuCode) {		
+		return mapper.onClickMenuList(menuCode);
+	}
+
+	@Override
+	public List<ItemVO> itemDetailView(String itemCode) {
+		return mapper.itemDetailView(itemCode);
+	}
+
 }
