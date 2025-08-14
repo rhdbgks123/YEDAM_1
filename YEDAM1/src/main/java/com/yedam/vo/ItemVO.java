@@ -14,4 +14,5 @@ public class ItemVO {
 	private String description;	
 	private String itemCategory;	
 	private String itemImage;	
+	private String reviewCnt;	
 }

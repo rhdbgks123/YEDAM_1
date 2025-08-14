@@ -27,6 +27,7 @@
 		 where user_id = #{id}
 		   and user_pw = #{pw}
 	</select>
+	
 	<update id="updateUser" parameterType = "user">
 		UPDATE TB_USER
 		   SET NICKNAME = #{nickname}
@@ -37,4 +38,29 @@
 		     , ADDRESSDETAIL = #{addressdetail}
 		 WHERE USER_ID = #{userId}
 	</update>
+	
+	<insert id="insertUserSign" parameterType = "user">
+		INSERT INTO TB_SIGNKEY
+			(USER_ID, SIGNKEY)
+		SELECT USER_ID, #{signkey}
+		FROM TB_USER
+		WHERE USER_NAME = #{user.userName}
+		  AND BIRTH = #{user.birth}
+		  AND IDENTI = #{user.identi}
+		  AND lower(email) = lower(#{user.email})
+	</insert>
+	
+	<select id="selectUserId" parameterType = "user" resultType = "user">
+	  SELECT USER_ID, USER_PW
+		FROM TB_USER
+		WHERE USER_NAME = #{userName}
+		  AND BIRTH = #{birth}
+		  AND IDENTI = #{identi}
+		  AND lower(email) = lower(#{email})
+	</select>
+	
+	<delete id="deleteUserSign" parameterType="string">
+		DELETE FROM TB_SIGNKEY
+		 WHERE USER_ID = #{id}
+	</delete>
 </mapper>

@@ -10,15 +10,74 @@
                     a.item_category,
                     a.sale_price,
                     a.star_point,
-                    MIN(b.item_image) "item_image"
+                    MIN(b.item_image) "item_image",
+                    COUNT(c.item_code) "review_cnt"
                     from tb_item a
                     join tb_item_image b
                     on a.item_code = b.item_code
+                    join tb_item_review c
+                    on b.item_code = c.item_code
                     where sale_price>0     
-                    group by a.item_code, a.item_name, a.item_category, a.sale_price, a.star_point
+                    group by a.item_code, a.item_name, a.item_category, a.sale_price, a.star_point, c.item_code
              ) ag
   <![CDATA[where rownum<=4]]>	
 	</select>
+	
+	<select id = "todayHotList" resultType = "Item">
+     select ag.*
+           from (
+                    select a.item_code,
+                    a.item_name,
+                    a.item_category,
+                    a.sale_price,
+                    a.star_point,
+                    MIN(b.item_image) "item_image",
+                    COUNT(c.item_code) "review_cnt"
+                    from tb_item a
+                    join tb_item_image b
+                    on a.item_code = b.item_code
+                    join tb_item_review c
+                    on b.item_code = c.item_code
+                    --where sale_price>0     
+                    group by a.item_code, a.item_name, a.item_category, a.sale_price, a.star_point, c.item_code
+                    order by a.star_point desc
+               ) ag
+  <![CDATA[where rownum<=4]]>	
+	</select>
+	
+	<select id = "onClickMenuList" parameterType="String" resultType = "Item">
+     select a.item_code,
+                    a.item_name,                    
+                    a.price,
+                    a.star_point,
+                    MIN(b.item_image) "item_image",
+                    COUNT(c.item_code) "review_cnt"
+                    from tb_item a
+                    join tb_item_image b
+                    on a.item_code = b.item_code
+                    join tb_item_review c
+                    on b.item_code = c.item_code
+                    where item_category = #{menuCode}     
+                    group by a.item_code, a.item_name, a.price, a.star_point, c.item_code
+	</select>
+	
+	<select id = "itemDetailView" parameterType="String" resultType = "Item">
+     select a.item_code,
+            a.item_name,
+            a.description,
+            a.sale_price,
+            a.price,
+            a.star_point,
+            a.delivery,
+            a.delivery_price,
+            b.item_image
+     from tb_item a
+     join tb_item_image b
+     on a.item_code = b.item_code
+     where a.item_code = #{itemCode}
+     order by b.item_image
+	</select>
+	
 	
 	
 </mapper>
