@@ -1,24 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-   <section class="hero">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="hero__categories">
-                        <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
-                            <span>All departments</span>
-                        </div>
-                        <ul>
-                        <!--  <li><a href="#">Fresh Meat</a></li> -->
-                           
-                        
-                           
-                            
-                        </ul>
-                    </div>
-                </div>
+   
+                
                 <div class="col-lg-9">
                 
                 <div class="row">
@@ -37,115 +21,7 @@
                 <!-- 오늘의특가 끝 -->
                 <div class="col-6 text-black" id="todayHot">
                 <div>오늘의 핫템</div>
-                <div class="row">
-                <!-- 1번핫템 -->
-                <div class="col-6">
-                <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
-                            <ul class="featured__item__pic__hover">
-                                
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="row">
-                        <div class="featured__item__text col-6">
-                            <h6>Crab Pool Security</h6>
-                            <i class="fa fa-heart"></i><span>1</span><i class="fa fa-pencil"></i><span>1</span>
-                            
-                        </div>
-                        <div class="featured__item__text col-6">
-                            <h6>판매수</h6>
-                            <h6>재고</h6>               
-                        </div>                        
-                        </div>
-                        <div class="row">
-                        <div class="col-12">가격</div>                        
-                        </div>
-                    </div>
-                </div>
-                <!-- 2번핫템 -->
-                <div class="col-6">
-                <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
-                            <ul class="featured__item__pic__hover">
-                                
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="row">
-                        <div class="featured__item__text col-6">
-                            <h6>Crab Pool Security</h6>
-                            <i class="fa fa-heart"></i><span>1</span><i class="fa fa-pencil"></i><span>1</span>
-                            
-                        </div>
-                        <div class="featured__item__text col-6">
-                            <h6>판매수</h6>
-                            <h6>재고</h6>               
-                        </div>                        
-                        </div>
-                        <div class="row">
-                        <div class="col-12">가격</div>                        
-                        </div>
-                    </div>
-                </div>               
-                </div>
                 
-                <div class="row">
-                <!-- 3번핫템 -->
-                <div class="col-6">
-                <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
-                            <ul class="featured__item__pic__hover">
-                                
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="row">
-                        <div class="featured__item__text col-6">
-                            <h6>Crab Pool Security</h6>
-                            <i class="fa fa-heart"></i><span>1</span><i class="fa fa-pencil"></i><span>1</span>
-                            
-                        </div>
-                        <div class="featured__item__text col-6">
-                            <h6>판매수</h6>
-                            <h6>재고</h6>               
-                        </div>                        
-                        </div>
-                        <div class="row">
-                        <div class="col-12">가격</div>                        
-                        </div>
-                    </div>
-                </div>
-                <!-- 4번핫템 -->
-                <div class="col-6">
-                <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
-                            <ul class="featured__item__pic__hover">
-                                
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="row">
-                        <div class="featured__item__text col-6">
-                            <h6>Crab Pool Security</h6>
-                            <i class="fa fa-heart"></i><span>1</span><i class="fa fa-pencil"></i><span>1</span>
-                            
-                        </div>
-                        <div class="featured__item__text col-6">
-                            <h6>판매수</h6>
-                            <h6>재고</h6>               
-                        </div>                        
-                        </div>
-                        <div class="row">
-                        <div class="col-12">가격</div>                        
-                        </div>
-                    </div>
-                </div>               
-                </div>
                 
                 
                 </div>
@@ -556,7 +432,5 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+     
     <!-- Latest Product Section End -->

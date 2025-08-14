@@ -94,9 +94,16 @@
     <!-- Header Section Begin -->
  	<tiles:insertAttribute name ="header"/>
     <!-- Header Section End -->
-
- 	<tiles:insertAttribute name ="body"/>
     <!-- Hero Section Begin -->
+<section class="hero">
+        <div class="container">
+            <div class="row">
+ 	<tiles:insertAttribute name ="menu"/>
+ 	<tiles:insertAttribute name ="body"/>
+ 	</div>
+ 	</div>
+ 	</section>
+    <!-- Hero Section End -->
  
 
     <!-- Footer Section Begin -->
@@ -115,6 +122,8 @@
     <script src="js/main.js"></script>
     <script src="js/menu.js"></script>
     <script src="js/todaySale.js"></script>
+    <script src="js/todayHot.js"></script>
+    <!-- <script src="js/itemDetailView.js"></script> -->
 
 
 

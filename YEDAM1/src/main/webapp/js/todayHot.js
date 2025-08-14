@@ -1,15 +1,19 @@
 /**
- * todaySale.js
+ * todayHot.js
  */
 
-//console.log("실행되나? todaySale.js")
-fetch('todaySale.do')
+//console.log("실행되나? todayHot.js")
+fetch('todayHot.do')
 	.then(resolve => resolve.json())
 	.then(result => {		
-			let listContainer = document.querySelector("#todaySale");
+			let listContainer = document.querySelector("#todayHot");
 			let text = "";
+			
+			
 		result.forEach((item, index) => {
-			//console.log(item,index);
+			//console.log(item);
+			
+				
 			if(index%2 ==0) {
 				text +='<div class="row" >';
 			}
@@ -37,6 +41,8 @@ fetch('todaySale.do')
 					//console.log("홀수면 작동함")
 					text +='</div>';
 				}
+				
+			
 		})
 		//console.log(text);
 			listContainer.insertAdjacentHTML('beforeend', text)
