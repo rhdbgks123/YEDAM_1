@@ -1,7 +1,5 @@
 package com.yedam.service;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 
 import com.yedam.common.DBUtil;
@@ -57,6 +55,38 @@ public class UserServiceImpl implements UserService
 			return true;
 		}
 		
+		return false;
+	}
+
+
+	@Override
+	public boolean checkUserMail(UserVO user, String signkey) {
+		int r = mapper.insertUserSign(user, signkey);
+		if (r> 0)
+		{
+			session.commit();
+			return true;
+		}
+		
+		return false;
+	}
+
+
+	@Override
+	public UserVO searchUserId(UserVO user) {
+		
+		return mapper.selectUserId(user);
+	}
+
+
+	@Override
+	public boolean removeUserSign(String userId) {
+		int r = mapper.deleteUserSign(userId);
+		if (r> 0)
+		{
+			session.commit();
+			return true;
+		}
 		return false;
 	}
 

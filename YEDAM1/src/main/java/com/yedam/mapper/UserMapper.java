@@ -10,6 +10,8 @@ public interface UserMapper {
 	public int insertUser(UserVO user);
 	public int selectUserPW(@Param("id")String id, @Param("pw")String pw);
 	public int updateUser(UserVO user);
-	
+	public int insertUserSign(@Param("user")UserVO user, @Param("signkey")String signkey);
+	public UserVO selectUserId(UserVO user);
+	public int deleteUserSign(String id);
 	
 }
