@@ -14,6 +14,7 @@ import com.yedam.control.CheckUserControl;
 import com.yedam.control.CheckUserPwControl;
 import com.yedam.control.FindUserControl;
 import com.yedam.control.FindUserFormControl;
+import com.yedam.control.ItemListFormControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.MainControl;
@@ -25,6 +26,7 @@ import com.yedam.control.MyCartControl;
 import com.yedam.control.RegisterUserControl;
 import com.yedam.control.RegisterUserFormControl;
 import com.yedam.control.RemoveSingControl;
+import com.yedam.control.SearchItemListControl;
 import com.yedam.control.SendMailUserInfoControl;
 import com.yedam.control.UserinfoChangeFormControl;
 
@@ -63,6 +65,8 @@ public class FrontController extends HttpServlet
 		map.put("/todaySale.do", new TodaySaleControl());
 		
 		//상품
+		map.put("/searchItemList.do", new SearchItemListControl());
+		map.put("/itemListForm.do", new ItemListFormControl());
 		
 		//마이페이지
 		map.put("/myCart.do", new MyCartControl());
