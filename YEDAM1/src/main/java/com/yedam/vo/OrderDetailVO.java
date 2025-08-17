@@ -1,5 +1,7 @@
 package com.yedam.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -9,4 +11,6 @@ public class OrderDetailVO {
 	private String itemCode;
 	private int itemQty;
 	private int itemPrice;
+	private String itemName;
+	private Date orderDate;
 }
