@@ -18,11 +18,11 @@ public class TodayHotControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("실행되나?TodayHotControl");
+		//System.out.println("실행되나?TodayHotControl");
 		res.setContentType("text/json;charset=utf-8");
 		MainEventService srv = new MainEventServiceImpl();
 		List<ItemVO> list = srv.todayHot();
-		System.out.println(list);
+		//System.out.println(list);
 		//Gson 라이브러리 활용해서 json문자열 만들기.
 				Gson gson = new GsonBuilder().create();
 				String json = gson.toJson(list);

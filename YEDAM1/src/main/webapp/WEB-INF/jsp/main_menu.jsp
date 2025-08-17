@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
    
-                
+                <script src="js/todayHot.js"></script>
+                <script src="js/todaySale.js"></script>
                 <div class="col-lg-9">
                 
                 <div class="row">

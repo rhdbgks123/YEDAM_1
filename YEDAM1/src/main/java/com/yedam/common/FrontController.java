@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.CheckUserControl;
 import com.yedam.control.CheckUserPwControl;
-import com.yedam.control.ItemDetailViewControl;
 import com.yedam.control.FindUserControl;
 import com.yedam.control.FindUserFormControl;
+import com.yedam.control.ItemDetailViewControl;
 import com.yedam.control.ItemListFormControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
@@ -22,16 +22,18 @@ import com.yedam.control.MainControl;
 import com.yedam.control.MenuControl;
 import com.yedam.control.MenuListControl;
 import com.yedam.control.MyCartControl;
-import com.yedam.control.PaymentControl;
 import com.yedam.control.OnClickMenuControl;
+import com.yedam.control.PaymentControl;
 import com.yedam.control.RegisterUserControl;
 import com.yedam.control.RegisterUserFormControl;
-import com.yedam.control.TodayHotControl;
-import com.yedam.control.TodaySaleControl;
-import com.yedam.control.UserinfoChangeControl;
 import com.yedam.control.RemoveSingControl;
 import com.yedam.control.SearchItemListControl;
 import com.yedam.control.SendMailUserInfoControl;
+import com.yedam.control.TodayHotControl;
+import com.yedam.control.TodaySaleControl;
+import com.yedam.control.UserinfoChangeControl;
+import com.yedam.control.UserinfoChangeFormControl;
+import com.yedam.control.reviewListControl;
 
 public class FrontController extends HttpServlet
 {
@@ -69,6 +71,7 @@ public class FrontController extends HttpServlet
 		map.put("/todayHot.do", new TodayHotControl());
 		map.put("/onClickMenu.do", new OnClickMenuControl());
 		map.put("/itemDetailView.do", new ItemDetailViewControl());
+		map.put("/reviewList.do", new reviewListControl());
 		
 		//상품
 		map.put("/searchItemList.do", new SearchItemListControl());

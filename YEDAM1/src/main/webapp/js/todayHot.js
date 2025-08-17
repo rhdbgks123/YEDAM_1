@@ -20,7 +20,7 @@ fetch('todayHot.do')
 			    text += `			<div class="col-6">
 			                <div class="featured__item">
 			                        
-									<img src="img/featured/${item.itemImage}" >
+									<a href="itemDetailView.do?itemCode=${item.itemCode }"><img  src="img/featured/${item.itemImage}" ></a>
 			                        <div class="row">
 			                        <div class="featured__item__text col-6">
 			                            <h6>${item.itemName}</h6>
@@ -33,7 +33,7 @@ fetch('todayHot.do')
 			                        </div>                        
 			                        </div>
 			                        <div class="row">
-			                        <div class="col-12">${item.salePrice}원</div>                        
+			                        <div class="col-12">${item.price}원</div>                        
 			                        </div>
 			                    </div>
 			                </div>`;
