@@ -33,6 +33,20 @@ ul {
 	background-color: #ddd;
 	border-radius: 5px;
 }
+    .anchor-modal { position: fixed; z-index: 1000; width: 280px; max-width: calc(100vw - 32px); border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 12px 32px rgba(0,0,0,0.18); background: #fff; opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+    .anchor-modal.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .anchor-modal header { padding: 12px 14px 0; font-weight: 700; font-size: 15px; }
+    .anchor-modal .body { padding: 10px 14px 14px; font-size: 14px; color: #333; }
+    .anchor-modal .actions { display: flex; gap: 8px; padding: 0 14px 14px; }
+    .anchor-modal .actions a, .anchor-modal .actions button { flex: 1; text-align: center; padding: 10px 12px; border-radius: 10px; border: 1px solid #ddd; background: #fff; font-size: 14px; text-decoration: none; color: #111; }
+    .anchor-modal .actions a.primary { background: #111; color: #fff; border-color: #111; }
+
+    /* 반투명 배경 (클릭으로 닫기) */
+    .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.2); opacity: 0; pointer-events: none; transition: opacity .18s ease; z-index: 999; }
+    .backdrop.open { opacity: 1; pointer-events: auto; }
+
+    /* 접근성: 키보드 포커스 링 */
+    .anchor-modal .actions a:focus, .anchor-modal .actions button:focus, button:focus { outline: 3px solid #7aa7ff; outline-offset: 2px; }
 </style>
 
 <!-- Product Details Section Begin -->
@@ -87,11 +101,11 @@ ul {
 		<div class="product__details__quantity">
 			<div class="quantity">
 				<div class="pro-qty">
-					<input type="text" value="1">
+					<input id = "selected_item_qty" type="text" value="1">
 				</div>
 			</div>
 		</div>
-		<a href="#" class="primary-btn">장바구니</a> <a href="#"
+		<a href="#" class="primary-btn" id = "btnAddCart">장바구니</a> <a href="#"
 			class="primary-btn">바로구매</a>
 		<ul>
 			<li><b>delivery</b> <span>${itemInfoList[0].delivery }</span></li>
@@ -102,6 +116,18 @@ ul {
 	</div>
 </div>
 
+  <div id="backdrop" class="backdrop" aria-hidden="true"></div>
+  <div id="anchorModal" class="anchor-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <header id="modalTitle">장바구니에 담았습니다 🛒</header>
+    <div id="modalDesc" class="body">
+      쇼핑을 계속하시겠어요, 아니면 장바구니로 이동할까요?
+    </div>
+    <div class="actions">
+      <button id="btnContinue">쇼핑 계속하기</button>
+      <a id="btnGoCart" class="primary" href="<c:url value='/cart.jsp'/>">장바구니 가기</a>
+    </div>
+  </div>
+  
 <div class="col-lg-2  row">
 	<div>최근본상품 넣을곳</div>
 	<img src="img/banner/testkuanggo2.JPG">

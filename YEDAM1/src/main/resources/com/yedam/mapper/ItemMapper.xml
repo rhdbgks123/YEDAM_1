@@ -45,20 +45,26 @@
   <![CDATA[where rownum<=4]]>	
 	</select>
 	
-	<select id = "onClickMenuList" parameterType="String" resultType = "Item">
-     select a.item_code,
-                    a.item_name,                    
-                    CASE WHEN a.sale_price > 0 THEN a.sale_price ELSE a.price END "price",
-                    a.star_point,
-                    MIN(b.item_image) "item_image",
-                    COUNT(c.item_code) "review_cnt"
-                    from tb_item a
-                    join tb_item_image b
-                    on a.item_code = b.item_code
-                    join tb_item_review c
-                    on b.item_code = c.item_code
-                    where item_category = #{menuCode}     
-                    group by a.item_code, a.item_name, a.price, a.sale_price, a.star_point, c.item_code
+	<select id = "onClickMenuList" resultType = "Item">
+	    select a.item_code,
+	           a.item_name,                    
+	           CASE WHEN a.sale_price > 0 THEN a.sale_price ELSE a.price END "price",
+	           a.star_point,
+	           MIN(b.item_image) "item_image",
+	           COUNT(c.item_code) "review_cnt"
+	      from tb_item a
+	      join tb_item_image b
+	        on a.item_code = b.item_code
+	      join tb_item_review c
+	        on b.item_code = c.item_code
+	     where 1=1
+       <if test="menuCode != null">
+       	   AND item_category = #{menuCode}
+       </if>
+       <if test="itemName != null">
+           AND item_name like '%' || #{itemName} || '%'
+       </if>
+	     group by a.item_code, a.item_name, a.price, a.sale_price, a.star_point, c.item_code
 	</select>
 	
 	<select id = "itemDetailView" parameterType="String" resultType = "Item">

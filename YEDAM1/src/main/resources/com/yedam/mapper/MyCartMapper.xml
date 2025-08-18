@@ -15,5 +15,11 @@
 		WHERE   b.user_id = #{userId}
 	</select>
 	
+	<insert id ="insertMyCart" parameterType="myCart">
+		insert INTO tb_basket BAS
+			(user_id,item_code,item_qty)
+		values
+			(#{userId}, #{itemCode}, #{itemQty})
+	</insert>
 	
 </mapper>

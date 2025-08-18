@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.control.AddMyCartControl;
 import com.yedam.control.CheckUserControl;
 import com.yedam.control.CheckUserPwControl;
 import com.yedam.control.FindUserControl;
@@ -23,7 +24,6 @@ import com.yedam.control.MenuControl;
 import com.yedam.control.MenuListControl;
 import com.yedam.control.MyCartControl;
 import com.yedam.control.MyOrderDetailControl;
-import com.yedam.control.PaymentControl;
 import com.yedam.control.OnClickMenuControl;
 import com.yedam.control.PaymentControl;
 import com.yedam.control.RegisterUserControl;
@@ -78,6 +78,7 @@ public class FrontController extends HttpServlet
 		//상품
 		map.put("/searchItemList.do", new SearchItemListControl());
 		map.put("/itemListForm.do", new ItemListFormControl());
+		map.put("/addMyCart.do", new AddMyCartControl());
 		
 		//마이페이지
 		map.put("/myCart.do", new MyCartControl());  // 장바구니

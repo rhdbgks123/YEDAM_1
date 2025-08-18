@@ -10,6 +10,7 @@
 		<typeAlias alias="menu" type="com.yedam.vo.MenuVO" />
 		<typeAlias alias="Item" type="com.yedam.vo.ItemVO" />
 		<typeAlias alias="review" type="com.yedam.vo.ReviewVO" />
+		<typeAlias alias="myCart" type="com.yedam.vo.MyBasketVO" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

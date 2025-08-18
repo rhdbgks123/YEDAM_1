@@ -25,8 +25,8 @@ public class MainEventServiceImpl implements MainEventService {
 	}
 
 	@Override
-	public List<ItemVO> onClickMenuList(String menuCode) {		
-		return mapper.onClickMenuList(menuCode);
+	public List<ItemVO> onClickMenuList(String menuCode, String itemName) {		
+		return mapper.onClickMenuList(menuCode, itemName);
 	}
 
 	@Override
