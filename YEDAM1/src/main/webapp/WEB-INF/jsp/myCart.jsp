@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 
 
+<h3 id="itemCode" style="display:none;">${empty itemCode ? '' : itemCode}</h3>
 <section class="shoping-cart spad">
 	<div class="container">
 		<form id="cartForm" action="payments.do" method="post">

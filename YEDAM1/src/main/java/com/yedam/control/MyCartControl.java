@@ -18,6 +18,7 @@ public class MyCartControl implements Control {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
+		String itemCode = req.getParameter("itemCode");
 		HttpSession session = req.getSession();
 		String logId = (String) session.getAttribute("logId");
 		
@@ -30,7 +31,7 @@ public class MyCartControl implements Control {
 		List<MyBasketVO> list = svc.cartList(logId);
 		
 		req.setAttribute("cartList", list);
-		
+		req.setAttribute("itemCode", itemCode);
 		
 		
 		req.getRequestDispatcher("myPage/myCart.tiles").forward(req, res);

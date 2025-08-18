@@ -16,10 +16,24 @@
 	</select>
 	
 	<insert id ="insertMyCart" parameterType="myCart">
-		insert INTO tb_basket BAS
-			(user_id,item_code,item_qty)
-		values
-			(#{userId}, #{itemCode}, #{itemQty})
+		MERGE INTO tb_basket bas
+		USING ( SELECT #{userId} user_id,
+		               #{itemCode} item_code,
+		               #{itemQty} item_qty
+		          FROM dual) new
+		   ON ( bas.item_code = new.item_code
+		  AND bas.user_id = new.user_id )
+		 WHEN NOT MATCHED THEN
+		INSERT ( user_id,
+		         item_code,
+		         item_qty )
+		VALUES ( new.user_id,
+		         new.item_code,
+		         new.item_qty )
+		 WHEN MATCHED THEN 
+		UPDATE
+		   SET bas.item_qty = bas.item_qty + new.item_qty
 	</insert>
+	
 	
 </mapper>

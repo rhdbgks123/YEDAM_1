@@ -146,6 +146,7 @@ document.querySelectorAll('div.footerr>div.pagination>a')//
 }//end of addEvent
 
    const btnAdd = document.getElementById("btnAddCart");
+   const btnDirect = document.getElementById("btnDirect");
    const modal = document.getElementById("anchorModal");
    const backdrop = document.getElementById("backdrop");
    const btnContinue = document.getElementById("btnContinue");
@@ -192,13 +193,11 @@ document.querySelectorAll('div.footerr>div.pagination>a')//
    // 장바구니 추가 요청 (AJAX)
    btnAdd.addEventListener('click', async (e) => {
      e.preventDefault();
-	 let item_q = item_Qty.value;
-	 console.log(item_q);
      try {
-       const res = await fetch('addMyCart.do?itemCode=I001&itemQty='+item_q);
+       const res = await fetch('addMyCart.do?itemCode='+itemCode+'&itemQty='+item_Qty.value);
        // 서버는 JSON으로 { ok: true, count: 장바구니수 } 형태를 응답한다고 가정
        const data = await res.json();
-       if (data.retCode = 'OK') {
+       if (data.retCode == 'OK') {
          openAnchorModal(btnAdd);
          // 헤더의 장바구니 뱃지 업데이트 같은 것도 여기서 처리 가능
          // document.querySelector('#cartCount').textContent = data.count;
@@ -210,3 +209,20 @@ document.querySelectorAll('div.footerr>div.pagination>a')//
        alert('네트워크 오류가 발생했습니다.');
      }
    });
+   
+   btnDirect.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        const res = await fetch('addMyCart.do?itemCode='+itemCode+'&itemQty='+item_Qty.value);
+        // 서버는 JSON으로 { ok: true, count: 장바구니수 } 형태를 응답한다고 가정
+        const data = await res.json();
+        if (data.retCode == 'OK') {
+          window.location.assign('myCart.do?itemCode=' + itemCode);
+        } else {
+          alert('장바구니 추가에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('네트워크 오류가 발생했습니다.');
+      }
+    });
