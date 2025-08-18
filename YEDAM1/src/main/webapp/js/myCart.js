@@ -1,7 +1,6 @@
 /**
  *  myCart 내 장바구니 
  */
-
 document.addEventListener('DOMContentLoaded', function() {
 	// 콤마/원 제거
 	function toNumber(str) {
@@ -35,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		if (checked.length == 0) {
 			deliveryPrice = 0;
+			document.querySelector('#deliveryPrice').innerText = '0원';   // ← 이 줄 추가
 		} else {
 			deliveryPrice = sum < 5000000 ? 3000 : 0;
 			document.querySelector('#deliveryPrice').innerText = deliveryPrice + '원';
@@ -85,12 +85,31 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 
+	let itemCode = document.querySelector('#itemCode').innerText;
 	let itemChecks = Array.from(document.querySelectorAll('input[name="selectItem"]'));
 	let checkAll = document.querySelector('#checkAll');
 
+	itemChecks.forEach(cb => cb.checked = false);
+	checkAll.checked = false;
+	console.log(itemCode)
+	if (itemCode) {
+	    checkAll.checked = false;
 
-	itemChecks.forEach(chk => { chk.checked = true; });
-	if (checkAll) checkAll.checked = itemChecks.length > 0;
+	    let checkbox = document.querySelector('input[name="selectItem"][value="' + itemCode + '"]');
+	    if (checkbox) {
+	        checkbox.checked = true;
+	    }
+	}
+	else
+	{
+		checkAll.checked = true;
+	}
+
+	
+	if (checkAll.checked)
+	{
+		itemChecks.forEach(chk => { chk.checked = true; });	
+	}
 
 
 	if (typeof updateSelectedTotal == 'function') updateSelectedTotal();

@@ -52,7 +52,6 @@ ul {
 <!-- Product Details Section Begin -->
 
 <!--<p>${itemInfoList[0] }</p> -->
-
 <div class="col-lg-7 ">
 <div class="row ">
 
@@ -110,7 +109,7 @@ ul {
 		</div>
 		<br>
 		<a href="#" class="primary-btn" id = "btnAddCart">장바구니</a> 
-		<a href="#"	class="primary-btn">바로구매</a>
+		<a href="#" class="primary-btn" id = "btnDirect">바로구매</a>
 		<ul>
 			<li><b>delivery</b> <span>${itemInfoList[0].delivery }</span></li>
 			<li><b>deliveryPrice</b> <span>${itemInfoList[0].deliveryPrice }</span></li>
