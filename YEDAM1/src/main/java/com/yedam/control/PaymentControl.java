@@ -40,25 +40,35 @@ public class PaymentControl implements Control {
 			res.sendRedirect("myCart.do");
 			return;
 		}
-
+		
+		int lineNo = 1;
+		
 		boolean chkOrder = svc.registerOrder(order);
 
 		if (chkOrder) {
 
 			for (String code : selectedCodes) {
-				 MyBasketVO basketItem = svc.getBasketItem(userId, code);
+				MyBasketVO basketItem = svc.getBasketItem(userId, code);
 				
+				int newQty = Integer.parseInt(req.getParameter("qty_" + code));
+				 
+				 
 				OrderDetailVO detail = new OrderDetailVO();
 				detail.setOrderNo(orderNo);
+				detail.setOrderDetailNo(lineNo++);
 				detail.setItemCode(basketItem.getItemCode());
-				detail.setItemQty(basketItem.getItemQty());
-				detail.setItemPrice(basketItem.getSalePrice()); // 가격 필드명 맞게
+				detail.setItemQty(newQty);
+				
+				int finalPrice = basketItem.getSalePrice() > 0 ? basketItem.getSalePrice() : basketItem.getPrice();
+				
+				detail.setItemPrice(finalPrice);
 				boolean chkDetail = svc.registerDetail(detail);
 				
 				if(chkDetail) {
 					svc.removeBasket(userId, code);
 				}
 			}
+			res.sendRedirect("myOrderDetail.do");
 		} 
 		
 		// 2번 registerOrder 호출
