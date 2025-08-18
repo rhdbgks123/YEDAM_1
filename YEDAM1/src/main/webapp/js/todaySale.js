@@ -21,7 +21,7 @@ fetch('todaySale.do')
 			                        <div class="row">
 			                        <div class="featured__item__text col-6">
 			                            <h6>${item.itemName}</h6>
-			                            <i class="fa fa-heart"></i><span>${item.starPoint}</span><i class="fa fa-pencil"></i><span>${item.reviewCnt}</span>
+			                            <i class="fa fa-heart"></i><span>${item.reviewStarPointAvg}</span><i class="fa fa-pencil"></i><span>${item.reviewCnt}</span>
 			                            
 			                        </div>
 			                        <div class="featured__item__text col-6">
