@@ -3,58 +3,47 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>구매 내역</title>
-</head>
-<body>
-	<section class="shoping-cart spad">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="shoping__cart__table">
-						<table>
-							<thead>
-								<tr>
-									<th class="shoping__product">주문번호</th>
-									<th>주문일자</th>
-									<th>상품명</th>
-									<th>수량</th>
-									<th>가격</th>
-									<th>총액</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:set var="prevNo" value="" />
-								<c:forEach var="row" items="${orders}">
-									<tr>
-										<c:choose>
-											<c:when test="${prevNo != row.orderNo}">
-												<td>${row.orderNo}</td>
-												<td><fmt:formatDate value="${row.orderDate}"
-														pattern="yyyy-MM-dd" /></td>
-											</c:when>
-											<c:otherwise>
-												<td></td>
-												<td></td>
-											</c:otherwise>
-										</c:choose>
 
-										<td class="shoping__cart__item">${row.itemName}</td>
-										<td class="shoping__cart__quantity">${row.itemQty}</td>
-										<td class="shoping__cart__price">₩<fmt:formatNumber
-												value="${row.itemPrice}" type="number" />
-										</td>
-									</tr>
-									<c:set var="prevNo" value="${row.orderNo}" />
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-</body>
-</html>
+<c:forEach var="h" items="${headers}" varStatus="st">
+  <c:set var="curDate" value="${empty h.orderDateStr ? '' : h.orderDateStr}"/>
+  <c:if test="${st.first or prevDate != curDate}">
+    <h3 style="margin-top:24px;">${curDate} 주문 내역</h3>
+    <c:set var="prevDate" value="${curDate}"/>
+  </c:if>
+
+  <div class="order-box" style="border:1px solid #e6e9ef;border-radius:12px;margin:12px 0;overflow:hidden;">
+    <div class="order-head" style="display:flex;justify-content:space-between;padding:12px 16px;background:#f3f5f9;font-weight:600;">
+      <div>주문번호: <strong>${h.orderNo}</strong></div>
+      <div>합계: ₩<fmt:formatNumber value="${h.totalPrice}" type="number"/></div>
+    </div>
+
+    <div class="shoping__cart__table">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:44%">상품명</th>
+            <th style="width:12%">수량</th>
+            <th style="width:16%">가격</th>
+            <th style="width:16%">총액</th>
+            <th style="width:12%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <c:forEach var="d" items="${h.details}">
+            <tr>
+              <td style="text-align:left">${d.itemName}</td>
+              <td>${d.itemQty}</td>
+              <td>₩<fmt:formatNumber value="${d.itemPrice}" type="number"/></td>
+              <td>₩<fmt:formatNumber value="${d.itemQty * d.itemPrice}" type="number"/></td>
+              <td><a href="#" class="primary-btn" style="padding:6px 12px;">리뷰작성</a></td>
+            </tr>
+          </c:forEach>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="padding:10px 16px; color:#666;">
+      배송지: ${h.address}
+    </div>
+  </div>
+</c:forEach>

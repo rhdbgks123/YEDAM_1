@@ -1,6 +1,8 @@
 package com.yedam.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -14,8 +16,16 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 	OrderDetailMapper mapper = session.getMapper(OrderDetailMapper.class);
 	
 	@Override
-	public List<OrderDetailVO> orderList(String userId) {
-		return mapper.selectOrderList(userId);
+	public List<Map<String, Object>> orderHeaderList(String userId) {
+		List<Map<String, Object>> headers = mapper.selectOrderList(userId);
+        return headers;
 	}
+	
+	@Override
+	public List<OrderDetailVO> orderList(String orderNo) {
+		List<OrderDetailVO> details = mapper.selectOrderDetailList(orderNo);
+        return details;
+	}
+
 
 }

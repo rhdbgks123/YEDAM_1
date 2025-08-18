@@ -2,18 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.OrderDetailMapper">
 
-	<select id="selectOrderList" parameterType="String" resultType="com.yedam.vo.OrderDetailVO">
-        SELECT o.order_no,
-               d.orderdetail_no,
-               d.item_code,
-               i.item_name,
-               d.item_qty,
-               d.item_price,
-               o.order_date
-        FROM tb_order o
-        JOIN tb_orderdetail d ON o.order_no = d.order_no
-        JOIN tb_item i ON d.item_code = i.item_code
-        WHERE o.user_id = #{userId}
+	<select id="selectOrderList" parameterType="String" resultType="map">
+        SELECT   ord.order_no AS orderNo,
+        		 ord.user_id AS userId,
+        		 TO_CHAR(ord.order_date, 'YYYY-MM-DD') AS orderDate,
+        		 sum(odd.item_qty * odd.item_price)  AS totlaPrice,
+         		 max(usr.address) || max(usr.addressdetail) AS address  
+        FROM     TB_ORDER ord
+        JOIN     TB_ORDERDETAIL odd ON odd.order_no = ord.order_no
+        JOIN  	 TB_USER usr ON usr.user_id = ord.user_id
+		WHERE    ord.user_id = #{userId}
+		AND      ord.user_id = usr.user_id
+		GROUP BY ord.order_no, ord.user_id, ord.order_date
     </select>
     
+   	<select id="selectOrderDetailList" parameterType="String" resultType="com.yedam.vo.OrderDetailVO">
+        SELECT
+   			d.order_no         AS orderNo,
+   			d.orderdetail_no   AS orderDetailNo,
+   			d.item_code        AS itemCode,
+   			i.item_name        AS itemName,
+   			d.item_qty         AS itemQty,
+   			d.item_price       AS itemPrice,
+   			o.order_date       AS orderDate    
+ 		FROM 	TB_ORDERDETAIL d
+ 		JOIN    TB_ORDER o ON o.order_no = d.order_no
+ 		JOIN 	TB_ITEM  i ON i.item_code = d.item_code
+		WHERE 	d.order_no = #{orderNo}
+   </select>
+   
 </mapper>
