@@ -16,7 +16,6 @@ import com.yedam.mapper.OrderDetailMapper;
 import com.yedam.vo.OrderDetailVO;
 
 public class MyOrderDetailControl implements Control {
-
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -27,14 +26,16 @@ public class MyOrderDetailControl implements Control {
 
 		List<Map<String,Object>> headers = mapper.selectOrderList(userId);
 
-		for (Map<String,Object> h : headers) {
-		    String orderNo = String.valueOf(h.get("orderNo")); 
+		for (Map<String,Object> map : headers) {
+		    String orderNo = String.valueOf(map.get("ORDERNO")); 
 		    List<OrderDetailVO> details = mapper.selectOrderDetailList(orderNo);
-		    h.put("details", details); 
+		    map.put("details", details); 
 		}
-
+		
 		req.setAttribute("headers", headers);
 		req.getRequestDispatcher("myPage/orderDetail.tiles").forward(req, res);
+		
+		
 
 		
 	}

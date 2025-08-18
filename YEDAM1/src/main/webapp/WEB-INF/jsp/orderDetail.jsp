@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 
 <c:forEach var="h" items="${headers}" varStatus="st">
-  <c:set var="curDate" value="${empty h.orderDateStr ? '' : h.orderDateStr}"/>
+  <c:set var="curDate" value="${empty h.ORDERDATE ? '' : h.ORDERDATE}"/>
   <c:if test="${st.first or prevDate != curDate}">
     <h3 style="margin-top:24px;">${curDate} 주문 내역</h3>
     <c:set var="prevDate" value="${curDate}"/>
@@ -13,8 +13,8 @@
 
   <div class="order-box" style="border:1px solid #e6e9ef;border-radius:12px;margin:12px 0;overflow:hidden;">
     <div class="order-head" style="display:flex;justify-content:space-between;padding:12px 16px;background:#f3f5f9;font-weight:600;">
-      <div>주문번호: <strong>${h.orderNo}</strong></div>
-      <div>합계: ₩<fmt:formatNumber value="${h.totalPrice}" type="number"/></div>
+      <div>주문번호: <strong>${h.ORDERNO}</strong></div>
+      <div>합계: ₩<fmt:formatNumber value="${h.TOTALPRICE}" type="number"/></div>
     </div>
 
     <div class="shoping__cart__table">
@@ -35,7 +35,7 @@
               <td>${d.itemQty}</td>
               <td>₩<fmt:formatNumber value="${d.itemPrice}" type="number"/></td>
               <td>₩<fmt:formatNumber value="${d.itemQty * d.itemPrice}" type="number"/></td>
-              <td><a href="#" class="primary-btn" style="padding:6px 12px;">리뷰작성</a></td>
+              <td><a href="itemReviewForm.do" class="primary-btn" style="padding:6px 12px;">리뷰작성</a></td>
             </tr>
           </c:forEach>
         </tbody>
@@ -43,7 +43,7 @@
     </div>
 
     <div style="padding:10px 16px; color:#666;">
-      배송지: ${h.address}
+      배송지: ${h.ADDRESS}
     </div>
   </div>
 </c:forEach>

@@ -6,13 +6,12 @@
         SELECT   ord.order_no AS orderNo,
         		 ord.user_id AS userId,
         		 TO_CHAR(ord.order_date, 'YYYY-MM-DD') AS orderDate,
-        		 sum(odd.item_qty * odd.item_price)  AS totlaPrice,
+        		 sum(odd.item_qty * odd.item_price)  AS totalPrice,
          		 max(usr.address) || max(usr.addressdetail) AS address  
         FROM     TB_ORDER ord
         JOIN     TB_ORDERDETAIL odd ON odd.order_no = ord.order_no
         JOIN  	 TB_USER usr ON usr.user_id = ord.user_id
 		WHERE    ord.user_id = #{userId}
-		AND      ord.user_id = usr.user_id
 		GROUP BY ord.order_no, ord.user_id, ord.order_date
     </select>
     
