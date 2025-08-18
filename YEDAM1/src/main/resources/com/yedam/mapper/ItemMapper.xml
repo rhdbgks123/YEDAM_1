@@ -29,7 +29,7 @@
                     select a.item_code,
                     a.item_name,
                     a.item_category,
-                    a.sale_price,
+                    CASE WHEN a.sale_price > 0 THEN a.sale_price ELSE a.price END "price",
                     a.star_point,
                     MIN(b.item_image) "item_image",
                     COUNT(c.item_code) "review_cnt"
@@ -39,7 +39,7 @@
                     join tb_item_review c
                     on b.item_code = c.item_code
                     --where sale_price>0     
-                    group by a.item_code, a.item_name, a.item_category, a.sale_price, a.star_point, c.item_code
+                    group by a.item_code, a.item_name, a.item_category, a.price, a.sale_price, a.star_point, c.item_code
                     order by a.star_point desc
                ) ag
   <![CDATA[where rownum<=4]]>	
@@ -48,7 +48,7 @@
 	<select id = "onClickMenuList" parameterType="String" resultType = "Item">
      select a.item_code,
                     a.item_name,                    
-                    a.price,
+                    CASE WHEN a.sale_price > 0 THEN a.sale_price ELSE a.price END "price",
                     a.star_point,
                     MIN(b.item_image) "item_image",
                     COUNT(c.item_code) "review_cnt"
@@ -58,26 +58,53 @@
                     join tb_item_review c
                     on b.item_code = c.item_code
                     where item_category = #{menuCode}     
-                    group by a.item_code, a.item_name, a.price, a.star_point, c.item_code
+                    group by a.item_code, a.item_name, a.price, a.sale_price, a.star_point, c.item_code
 	</select>
 	
 	<select id = "itemDetailView" parameterType="String" resultType = "Item">
-     select a.item_code,
-            a.item_name,
-            a.description,
-            a.sale_price,
-            a.price,
-            a.star_point,
-            a.delivery,
-            a.delivery_price,
-            b.item_image
-     from tb_item a
-     join tb_item_image b
-     on a.item_code = b.item_code
-     where a.item_code = #{itemCode}
-     order by b.item_image
+     select *
+       from(select  a.item_code,
+                    a.item_name,                    
+                    CASE WHEN a.sale_price > 0 THEN a.sale_price ELSE a.price END "price",
+                    a.delivery,
+                    a.delivery_price,
+                    a.star_point,
+                    a.description,
+                    b.item_image,
+                    COUNT(c.item_code) "review_cnt",
+                    AVG(c.star_point) "review_star_point_avg"
+                    from tb_item a
+                    join tb_item_image b
+                    on a.item_code = b.item_code
+                    join tb_item_review c
+                    on b.item_code = c.item_code                    
+                    group by a.item_code, a.item_name, a.price, a.sale_price, a.delivery, a.delivery_price, a.star_point, a.description, b.item_image, c.item_code)                    
+       where item_code = #{itemCode}
+       order by item_image
 	</select>
 	
+	<select id = "reviewList" parameterType="map" resultType = "review">
+     select rownum rn,
+       c.*
+from (select a.review_seq,
+              a.star_point,
+              a.reviewdetail,
+              a.create_date, 
+              a.created_by,
+              a.update_date,
+              a.updated_by,
+              COUNT(b.review_image) "review_image_number"
+       from tb_item_review a
+       join tb_item_review_image b
+       on a.review_seq = b.review_seq
+       where item_code = #{bno}
+       group by a.review_seq, a.star_point, a.reviewdetail, a.create_date, a.created_by, a.update_date, a.updated_by
+       order by create_date desc) c
+where rownum > (#{page} -1) * 5
+<![CDATA[
+and rownum <= #{page} * 5
+]]>
+	</select>
 	
 	
 </mapper>

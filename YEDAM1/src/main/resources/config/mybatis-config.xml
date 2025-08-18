@@ -9,6 +9,7 @@
 		<typeAlias alias="user" type="com.yedam.vo.UserVO" />
 		<typeAlias alias="menu" type="com.yedam.vo.MenuVO" />
 		<typeAlias alias="Item" type="com.yedam.vo.ItemVO" />
+		<typeAlias alias="review" type="com.yedam.vo.ReviewVO" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

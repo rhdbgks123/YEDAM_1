@@ -1,7 +1,9 @@
 package com.yedam.control;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,23 +14,30 @@ import com.google.gson.GsonBuilder;
 import com.yedam.common.Control;
 import com.yedam.service.MainEventService;
 import com.yedam.service.MainEventServiceImpl;
-import com.yedam.vo.ItemVO;
+import com.yedam.vo.ReviewVO;
 
-public class TodaySaleControl implements Control {
+public class reviewListControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		//System.out.println("실행되나?TodaySaleControl");
-		res.setContentType("text/json;charset=utf-8");
+		res.setContentType("text/json;charset=utf-8"); // 한글있을지도 모르니 코드지정
+		String bno = req.getParameter("bno");		
+		String page = req.getParameter("page");	
+		
 		MainEventService srv = new MainEventServiceImpl();
-		List<ItemVO> list = srv.todaySale();
-		//System.out.println(list);
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("page", page);
+		List<ReviewVO> list = srv.reviewList(map);
+		
+		
 		//Gson 라이브러리 활용해서 json문자열 만들기.
-				Gson gson = new GsonBuilder().create();
-				String json = gson.toJson(list);
-				
-				// 출력 스트림.
-				res.getWriter().print(json);
+		Gson gson = new GsonBuilder().create();
+		String json = gson.toJson(list);
+		
+		// 출력 스트림.
+		res.getWriter().print(json);
+
 
 	}
 

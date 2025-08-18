@@ -20,6 +20,7 @@ public class ItemDetailViewControl implements Control {
 		MainEventService srv = new MainEventServiceImpl();
 		List<ItemVO> list = srv.itemDetailView(itemCode);
 		req.setAttribute("itemInfoList", list);
+		req.setAttribute("itemCode", itemCode);
 		
 		
 		

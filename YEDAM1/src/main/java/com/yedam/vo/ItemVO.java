@@ -15,4 +15,5 @@ public class ItemVO {
 	private String itemCategory;	
 	private String itemImage;	
 	private String reviewCnt;	
+	private String reviewStarPointAvg;	
 }
