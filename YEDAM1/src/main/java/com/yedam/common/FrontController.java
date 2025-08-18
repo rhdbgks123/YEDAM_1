@@ -18,6 +18,7 @@ import com.yedam.control.FindUserFormControl;
 import com.yedam.control.ItemDetailViewControl;
 import com.yedam.control.ItemListFormControl;
 import com.yedam.control.ItemReviewControl;
+import com.yedam.control.ItemReviewFormControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.LogoutControl;
@@ -90,6 +91,7 @@ public class FrontController extends HttpServlet
 		map.put("/payments.do", new PaymentControl());  // 결제
 		map.put("/myOrderDetail.do", new MyOrderDetailControl()); // 주문내역
 		map.put("/itemReview.do", new ItemReviewControl()); // 리뷰작성
+		map.put("/itemReviewForm.do", new ItemReviewFormControl()); // 리뷰작성
 	}
 
 	@Override

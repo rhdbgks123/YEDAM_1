@@ -35,18 +35,14 @@ public class ItemReviewControl implements Control {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		ItemReviewService svc = new ItemReviewServiceImpl();
-		if(svc.writeReview(review)) {
-			map.put("retCode", "OK");
-			 map.put("msg", "리뷰가 등록되었습니다!");
-			 map.put("redirect", "myOrderDetail.do");
-		} else {
-			map.put("retCode", "NG");
-            map.put("msg", "리뷰 등록에 실패했습니다.");
-		}
+		boolean result = svc.writeReview(review);
 		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(map); 
-		res.getWriter().print(json);
+		if (result) {
+            res.sendRedirect("myOrderDetail.do");
+        } else {
+            req.setAttribute("errorMsg", "리뷰 등록에 실패했습니다.");
+            req.getRequestDispatcher("reviewForm.jsp").forward(req, res);
+        }
 		
 	}
 

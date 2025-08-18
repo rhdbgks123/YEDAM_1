@@ -3,9 +3,18 @@
 <mapper namespace="com.yedam.mapper.ItemReviewMapper">
 
 	<insert id="registerReview" parameterType="com.yedam.vo.ReviewVO">
-		insert into TB_ITEM_REVIEW (review_seq, item_code, star_point, reviewDetail, created_By)
-		values (seq_tb_item_review.nextval,
-		#{itemCode}, #{starPoint}, #{reviewDetail}, #{userId})
+		INSERT INTO TB_ITEM_REVIEW (
+			review_seq,
+			item_code,
+			star_point,
+			reviewDetail,
+			created_By)
+		VALUES (
+			seq_tb_item_review.nextval,
+			#{itemCode},
+			#{starPoint},
+			#{reviewDetail},
+			#{userId})
 	</insert>
 	
 </mapper>
