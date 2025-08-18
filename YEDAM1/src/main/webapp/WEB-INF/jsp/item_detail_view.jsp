@@ -107,6 +107,7 @@ ul {
 				</div>
 			</div>
 		</div>
+		<br>
 		<a href="#" class="primary-btn" id = "btnAddCart">장바구니</a> 
 		<a href="#" class="primary-btn" id = "btnDirect">바로구매</a>
 		<ul>
@@ -143,34 +144,22 @@ ul {
 
                                     <div class="latest-product__slider owl-carousel">
                                         <div class="latest-prdouct__slider__item">
-                                            <a  href="#" class="latest-product__item ">
+                                            <c:forEach var="lastitems" items="${lastItemList }">
+                                            <a  href="itemDetailView.do?itemCode=${lastitems.itemCode }" class="latest-product__item ">
 
-                                                <div class="latest-product__item__pic">
-                                                    <img src="img/latest-product/lp-1.jpg" alt="">
+                                                <div class="latest-product__item__pic">                                                
+                                                    <img src="img/featured/${lastitems.itemImage }" alt="">                                                    
                                                 </div >
 
 
                                             </a>
-                                            <a href="#" class="latest-product__item">
-                                                <div class="latest-product__item__pic">
-                                                    <img src="img/latest-product/lp-2.jpg" alt="">
-                                                </div>
-
-
-                                            </a>
-                                            <a href="#" class="latest-product__item">
-                                                <div class="latest-product__item__pic">
-                                                    <img src="img/latest-product/lp-3.jpg" alt="">
-                                                </div>
-
-
-                                            </a>
+                                         </c:forEach>
                                         </div>
 
                                     </div>
 
                               </div>
-                          </div>
+              </div>
     <img class="col-lg-12 col-md-6 col-sm-6" src="img/banner/testkuanggo2.JPG">
   </div>
 </div>

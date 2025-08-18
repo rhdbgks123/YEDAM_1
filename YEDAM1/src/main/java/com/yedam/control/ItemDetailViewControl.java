@@ -16,6 +16,7 @@ import com.yedam.service.LastItemServiceImpl;
 import com.yedam.service.MainEventService;
 import com.yedam.service.MainEventServiceImpl;
 import com.yedam.vo.ItemVO;
+import com.yedam.vo.LastItemVO;
 
 public class ItemDetailViewControl implements Control {
 
@@ -29,7 +30,9 @@ public class ItemDetailViewControl implements Control {
 		HttpSession session = req.getSession();
 		String logId = (String) session.getAttribute("logId");
 		
-				
+		if(logId == null) {
+			logId = "guest";
+		}
 		Map<String, Object> map = new HashMap<>();
 		
 		LastItemService srvtwo = new LastItemServiceImpl();
@@ -44,6 +47,12 @@ public class ItemDetailViewControl implements Control {
 		
 		req.setAttribute("itemInfoList", list);
 		req.setAttribute("itemCode", itemCode);
+		
+		//250818 최근 클릭한 상품 목록3개 출력 기능
+		LastItemService srvsec = new LastItemServiceImpl();
+		List<LastItemVO> lastItemlist = srvsec.lastItemViewList(logId);
+		
+		req.setAttribute("lastItemList", lastItemlist);
 		
 		
 		
