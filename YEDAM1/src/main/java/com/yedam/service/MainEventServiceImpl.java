@@ -1,12 +1,14 @@
 package com.yedam.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.yedam.common.DBUtil;
 import com.yedam.mapper.ItemMapper;
 import com.yedam.vo.ItemVO;
+import com.yedam.vo.ReviewVO;
 
 public class MainEventServiceImpl implements MainEventService {
 	SqlSession session = DBUtil.getInstance().openSession();
@@ -30,6 +32,11 @@ public class MainEventServiceImpl implements MainEventService {
 	@Override
 	public List<ItemVO> itemDetailView(String itemCode) {
 		return mapper.itemDetailView(itemCode);
+	}
+
+	@Override
+	public List<ReviewVO> reviewList(Map<String, Object> values) {
+		return mapper.reviewList(values);		
 	}
 
 }

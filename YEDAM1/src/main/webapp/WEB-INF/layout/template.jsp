@@ -121,9 +121,9 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/menu.js"></script>
-    <script src="js/todaySale.js"></script>
-    <script src="js/todayHot.js"></script>
-    <!-- <script src="js/itemDetailView.js"></script> -->
+    
+    
+    
 
 
 

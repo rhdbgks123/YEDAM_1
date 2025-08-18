@@ -3,6 +3,7 @@
  */
 
 //console.log("실행되나? todaySale.js")
+
 fetch('todaySale.do')
 	.then(resolve => resolve.json())
 	.then(result => {		
@@ -16,7 +17,7 @@ fetch('todaySale.do')
 			    text += `			<div class="col-6">
 			                <div class="featured__item">
 			                        
-									<img src="img/featured/${item.itemImage}" >
+									<a href="itemDetailView.do?itemCode=${item.itemCode }"><img src="img/featured/${item.itemImage}" ></a>
 			                        <div class="row">
 			                        <div class="featured__item__text col-6">
 			                            <h6>${item.itemName}</h6>
