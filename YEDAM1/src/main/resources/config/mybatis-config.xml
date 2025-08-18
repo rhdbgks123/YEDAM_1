@@ -9,7 +9,8 @@
 		<typeAlias alias="user" type="com.yedam.vo.UserVO" />
 		<typeAlias alias="menu" type="com.yedam.vo.MenuVO" />
 		<typeAlias alias="Item" type="com.yedam.vo.ItemVO" />
-		<typeAlias alias="review" type="com.yedam.vo.ReviewVO" />		
+		<typeAlias alias="review" type="com.yedam.vo.ReviewVO" />
+		<typeAlias alias="myCart" type="com.yedam.vo.MyBasketVO" />
 		<typeAlias alias="last" type="com.yedam.vo.LastItemVO" />		
 	</typeAliases>
 	<environments default="development">

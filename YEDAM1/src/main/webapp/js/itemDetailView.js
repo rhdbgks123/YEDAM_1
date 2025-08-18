@@ -144,3 +144,69 @@ document.querySelectorAll('div.footerr>div.pagination>a')//
 	  })
   })
 }//end of addEvent
+
+   const btnAdd = document.getElementById("btnAddCart");
+   const modal = document.getElementById("anchorModal");
+   const backdrop = document.getElementById("backdrop");
+   const btnContinue = document.getElementById("btnContinue");
+   const item_Qty = document.querySelector("#selected_item_qty");
+   // 모달 열기: 클릭한 버튼 위치에 맞춰 살짝 아래쪽에 고정 배치
+   function openAnchorModal(anchorEl) {
+     const rect = anchorEl.getBoundingClientRect();
+     const modalW = 280; // CSS와 동일
+     const gap = 10;     // 버튼과 모달 간격
+     // 기본 위치: 버튼 오른쪽 상단 기준 살짝 아래
+     let left = rect.left + Math.min(rect.width, 140) - (modalW/2);
+     let top = rect.bottom + gap;
+
+     // 뷰포트 밖으로 나가지 않게 보정
+     left = Math.max(16, Math.min(left, window.innerWidth - modalW - 16));
+     top = Math.max(16, Math.min(top, window.innerHeight - 16 - modal.offsetHeight));
+
+     modal.style.left = left + "px";
+     modal.style.top = top + "px";
+
+     backdrop.classList.add("open");
+     modal.classList.add("open");
+     // 접근성: 첫 포커스 이동
+     setTimeout(() => {
+       document.getElementById("btnGoCart").focus();
+     }, 0);
+
+     // ESC로 닫기
+     document.addEventListener('keydown', onEscClose);
+   }
+
+   function closeAnchorModal() {
+     backdrop.classList.remove("open");
+     modal.classList.remove("open");
+     document.removeEventListener('keydown', onEscClose);
+     btnAdd.focus();
+   }
+
+   function onEscClose(e) { if (e.key === 'Escape') closeAnchorModal(); }
+
+   backdrop.addEventListener('click', closeAnchorModal);
+   btnContinue.addEventListener('click', closeAnchorModal);
+
+   // 장바구니 추가 요청 (AJAX)
+   btnAdd.addEventListener('click', async (e) => {
+     e.preventDefault();
+	 let item_q = item_Qty.value;
+	 console.log(item_q);
+     try {
+       const res = await fetch('addMyCart.do?itemCode=I001&itemQty='+item_q);
+       // 서버는 JSON으로 { ok: true, count: 장바구니수 } 형태를 응답한다고 가정
+       const data = await res.json();
+       if (data.retCode = 'OK') {
+         openAnchorModal(btnAdd);
+         // 헤더의 장바구니 뱃지 업데이트 같은 것도 여기서 처리 가능
+         // document.querySelector('#cartCount').textContent = data.count;
+       } else {
+         alert('장바구니 추가에 실패했습니다. 잠시 후 다시 시도해주세요.');
+       }
+     } catch (err) {
+       console.error(err);
+       alert('네트워크 오류가 발생했습니다.');
+     }
+   });

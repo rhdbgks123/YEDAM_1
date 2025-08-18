@@ -17,6 +17,18 @@ public class MyCartServiceImpl implements MyCartService{
 	public List<MyBasketVO> cartList(String userId) {
 		return mapper.selectCartList(userId);
 	}
+
+	@Override
+	public boolean addMyCart(MyBasketVO cart) {
+		int r = mapper.insertMyCart(cart);
+		if (r> 0)
+		{
+			sqlSession.commit();
+			return true;
+		}
+		
+		return false;
+	}
 	
 	
 	
