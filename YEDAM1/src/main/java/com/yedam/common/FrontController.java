@@ -17,8 +17,10 @@ import com.yedam.control.FindUserFormControl;
 import com.yedam.control.ItemDetailViewControl;
 import com.yedam.control.ItemListFormControl;
 import com.yedam.control.LastItemViewListControl;
+import com.yedam.control.ItemReviewControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
+import com.yedam.control.LogoutControl;
 import com.yedam.control.MainControl;
 import com.yedam.control.MenuControl;
 import com.yedam.control.MenuListControl;
@@ -66,6 +68,7 @@ public class FrontController extends HttpServlet
 		map.put("/findUser.do", new FindUserControl());
 		map.put("/removeSign.do", new RemoveSingControl());
 		map.put("/sendMailUserInfo.do", new SendMailUserInfoControl());
+		map.put("/logout.do", new LogoutControl());
 		
 		//메인메뉴
 		map.put("/menu.do", new MenuControl());
@@ -85,8 +88,8 @@ public class FrontController extends HttpServlet
 		//마이페이지
 		map.put("/myCart.do", new MyCartControl());  // 장바구니
 		map.put("/payments.do", new PaymentControl());  // 결제
-		map.put("/myOrderDetail.do", new MyOrderDetailControl());
-//		map.put("/myInfo.do", new MyInfoControl());
+		map.put("/myOrderDetail.do", new MyOrderDetailControl()); // 주문내역
+		map.put("/itemReview.do", new ItemReviewControl()); // 리뷰작성
 	}
 
 	@Override
