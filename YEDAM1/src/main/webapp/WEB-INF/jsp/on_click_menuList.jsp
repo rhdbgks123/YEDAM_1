@@ -32,6 +32,32 @@
 </div>
 
 <div class="col-lg-2">
-<div>최근본상품 넣을곳</div>
-<img src="img/banner/testkuanggo2.JPG">
+<div class="row">
+
+    <div class="col-lg-12 col-md-6 col-sm-6 sidebar__item">
+                              <div class="latest-product__text">
+                                  <h4>Latest Products</h4>
+
+
+                                    <div class="latest-product__slider owl-carousel">
+                                        <div class="latest-prdouct__slider__item">
+                                        <c:forEach var="lastitems" items="${lastItemList }">
+                                            <a  href="itemDetailView.do?itemCode=${lastitems.itemCode }" class="latest-product__item ">
+
+                                                <div class="latest-product__item__pic">                                                
+                                                    <img src="img/featured/${lastitems.itemImage }" alt="">                                                    
+                                                </div >
+
+
+                                            </a>
+                                         </c:forEach>
+                                            
+                                        </div>
+
+                                    </div>
+
+                              </div>
+              </div>
+    <img class="col-lg-12 col-md-6 col-sm-6" src="img/banner/testkuanggo2.JPG">
+  </div>
 </div>

@@ -68,7 +68,7 @@ function showReplyList() {
 					          </span>	      
 						      <span class="col-6 row">	
 							  ${images}					  
-							  <span class="col-6 ">${review.reviewdetail}</span>
+							  <span class="col-6 ">${review.reviewDetail}</span>
 							  							  
 							  </span>
 						      <span class="col-1">${review.createdBy}</span>

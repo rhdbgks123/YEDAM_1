@@ -17,7 +17,6 @@ import com.yedam.control.FindUserControl;
 import com.yedam.control.FindUserFormControl;
 import com.yedam.control.ItemDetailViewControl;
 import com.yedam.control.ItemListFormControl;
-import com.yedam.control.LastItemViewListControl;
 import com.yedam.control.ItemReviewControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
@@ -83,7 +82,7 @@ public class FrontController extends HttpServlet
 		map.put("/searchItemList.do", new SearchItemListControl());
 		map.put("/itemListForm.do", new ItemListFormControl());
 		map.put("/addMyCart.do", new AddMyCartControl());
-		map.put("/lastItemViewList.do", new LastItemViewListControl()); //최근 본 목록3개 출력하는 기능
+		
 		
 		
 		//마이페이지

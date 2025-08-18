@@ -7,5 +7,5 @@ import com.yedam.vo.LastItemVO;
 
 public interface LastItemMapper {
 	public int lastItemViewAdd(Map<String, Object> values);
-	public List<LastItemVO> lastItemViewList();
+	public List<LastItemVO> lastItemViewList(String logId);
 }

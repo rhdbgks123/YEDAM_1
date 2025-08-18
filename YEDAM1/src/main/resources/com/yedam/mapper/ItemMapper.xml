@@ -64,7 +64,7 @@
            af.item_category,
            af.price,
            af.item_image,
-           AVG(c.star_point) "review_star_point_avg",
+           ROUND(AVG(c.star_point), 1) "review_star_point_avg",
            COUNT(c.review_seq) "review_cnt"
       FROM (SELECT a.item_code,
                    a.item_name,

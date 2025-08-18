@@ -15,16 +15,23 @@ values( #{userId},
 </insert>
 
 <select id = "lastItemViewList" parameterType="String" resultType = "last">
-select *
-              from tb_last_item
-              where create_date between trunc(sysdate)-1 and trunc(sysdate)+1 
-                <if test="userId != null">
-    AND user_id = #{userId}
-  </if>
-  <if test="userId == null">
-    AND user_id IS NULL
-  </if>                             
-              order by create_date desc;
+select rownum rn,
+       a.*             
+from ( select a.user_id,
+              a.item_code,       
+              MIN(b.item_image) AS item_image
+       from tb_last_item a
+       join tb_item_image b
+       on a.item_code = b.item_code
+       where a.create_date between trunc(sysdate)-1 and trunc(sysdate)+1
+        <if test="userId != null">
+        AND user_id = #{userId}
+        </if>
+        <if test="userId == guest">
+        AND user_id = 'guest'
+        </if> 
+        group by a.user_id, a.item_code                
+        order by MAX(a.create_date) desc) a
 <![CDATA[
 where rownum<=3
 ]]>  
