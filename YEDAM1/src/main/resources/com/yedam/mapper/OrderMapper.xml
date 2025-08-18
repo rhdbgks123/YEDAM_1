@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.OrderMapper">
 
-	<select id="selectItem" parameterType="String"
-		resultType="com.yedam.vo.MyBasketVO">
-		SELECT b.item_code,
-		b.item_qty,
-		i.sale_price,
-		i.price
+	<select id="selectItem" resultType="com.yedam.vo.MyBasketVO">
+		SELECT b.item_code AS itemCode,
+		b.item_qty AS itemQty,
+		i.sale_price AS salePrice,
+		i.price AS price
 		FROM TB_BASKET b
 		JOIN TB_ITEM i ON i.item_code = b.item_code
 		WHERE
@@ -37,23 +36,28 @@
 	</insert>
 
 	<select id="selectOrderTotal" resultType="int">
-		SELECT sum(item_qty *
-		item_price)
+		SELECT sum(item_qty * item_price)
 		FROM TB_ORDERDETAIL
 		WHERE order_no = #{orderNo}
 	</select>
 
-	<delete id="deleteBasket" parameterType="String">
+	<delete id="deleteBasket">
 		DELETE FROM TB_BASKET
 		WHERE user_id = #{userId}
 		AND   item_code = #{itemCode}
 	</delete>
 
 	<select id="selectBasketItem" parameterType="map" resultType="com.yedam.vo.MyBasketVO">
-		SELECT *
-		FROM TB_BASKET
-		WHERE user_id = #{userId}
-		AND item_code = #{itemCode}
+		SELECT
+     		  b.user_id   AS userId,
+      		  b.item_code AS itemCode,
+      		  b.item_qty  AS itemQty,
+      		  i.sale_price AS salePrice,
+      		  i.price AS price
+		FROM  TB_BASKET b
+		JOIN  TB_ITEM i ON i.item_code = b.item_code
+		WHERE b.user_id = #{userId}
+		AND   b.item_code = #{itemCode}
 	</select>
 
 </mapper>

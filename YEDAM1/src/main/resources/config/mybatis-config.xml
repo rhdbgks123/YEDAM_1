@@ -11,6 +11,7 @@
 		<typeAlias alias="Item" type="com.yedam.vo.ItemVO" />
 		<typeAlias alias="review" type="com.yedam.vo.ReviewVO" />
 		<typeAlias alias="myCart" type="com.yedam.vo.MyBasketVO" />
+		<typeAlias alias="last" type="com.yedam.vo.LastItemVO" />		
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -31,5 +32,7 @@
 		<mapper resource="com/yedam/mapper/MyCartMapper.xml" />
 		<mapper resource="com/yedam/mapper/OrderMapper.xml" />
 		<mapper resource="com/yedam/mapper/OrderDetailMapper.xml" />
+		<mapper resource="com/yedam/mapper/LastItemMapper.xml" />
+		<mapper resource="com/yedam/mapper/ItemReviewMapper.xml" />
 	</mappers>
 </configuration>

@@ -52,12 +52,15 @@ ul {
 <!-- Product Details Section Begin -->
 
 <!--<p>${itemInfoList[0] }</p> -->
-<div class="col-6 col-lg-3 row">
+
+<div class="col-lg-7 ">
+<div class="row ">
+
 	<!--<div class="" > -->
 
 
 
-	<div class="col-3 " id="thumbNail">
+	<div class="col-1 " id="thumbNail">
 		<img src="img/featured/${itemInfoList[1].itemImage }" alt="이미지 1">
 		<img src="img/featured/${itemInfoList[2].itemImage }" alt="이미지 2">
 		<img src="img/featured/${itemInfoList[3].itemImage }" alt="이미지 3">
@@ -66,37 +69,37 @@ ul {
 
 	</div>
 
-	<div class="col-9">
+	<div class="col-5">
 		<img id="thumbNailTarget"
 			src="img/featured/${itemInfoList[0].itemImage }" alt="이미지 0">
 	</div>
 
 
 
+
 	<!-- </div> -->
-</div>
-<div class="col-6 col-lg-3 row">
-	<div class="product__details__text">
-		<h3>${itemInfoList[0].itemName }</h3>
-		<div class="product__details__rating">
-			<c:forEach var="i" begin="1"
-				end="${Math.floor(itemInfoList[0].reviewStarPointAvg) }" step="1">
-				<i class="fa fa-star"></i>
-			</c:forEach>
+	<div class="col-6 ">
+		<div class="product__details__text">
+			<h3>${itemInfoList[0].itemName }</h3>
+			<div class="product__details__rating">
+				<c:forEach var="i" begin="1"
+					end="${Math.floor(itemInfoList[0].reviewStarPointAvg) }" step="1">
+					<i class="fa fa-star"></i>
+				</c:forEach>
 
-			<c:if
-				test="${Math.ceil(itemInfoList[0].reviewStarPointAvg) > Math.floor(itemInfoList[0].reviewStarPointAvg)}">
-				<i class="fa fa-star-half-full"></i>
-			</c:if>
+				<c:if
+					test="${Math.ceil(itemInfoList[0].reviewStarPointAvg) > Math.floor(itemInfoList[0].reviewStarPointAvg)}">
+					<i class="fa fa-star-half-full"></i>
+				</c:if>
 
-			<c:forEach var="i" begin="1"
-				end="${5- Math.ceil(itemInfoList[0].reviewStarPointAvg) }" step="1">
-				<i class="fa fa-star-o"></i>
-			</c:forEach>
+				<c:forEach var="i" begin="1"
+					end="${5- Math.ceil(itemInfoList[0].reviewStarPointAvg) }" step="1">
+					<i class="fa fa-star-o"></i>
+				</c:forEach>
 
-			<span>(${itemInfoList[0].reviewCnt } reviews)</span>
-		</div>
-		<div class="product__details__price">$${itemInfoList[0].price }</div>
+				<span>(${itemInfoList[0].reviewCnt } reviews)</span>
+			</div>
+			<div class="product__details__price">$${itemInfoList[0].price }</div>
 
 		<div class="product__details__quantity">
 			<div class="quantity">
@@ -112,8 +115,11 @@ ul {
 			<li><b>deliveryPrice</b> <span>${itemInfoList[0].deliveryPrice }</span></li>
 
 
-		</ul>
+			</ul>
+		</div>
 	</div>
+
+</div>
 </div>
 
   <div id="backdrop" class="backdrop" aria-hidden="true"></div>
@@ -128,9 +134,46 @@ ul {
     </div>
   </div>
   
-<div class="col-lg-2  row">
-	<div>최근본상품 넣을곳</div>
-	<img src="img/banner/testkuanggo2.JPG">
+<div class="col-lg-2">
+  <div class="row">
+
+    <div class="col-lg-12 col-md-6 col-sm-6 sidebar__item">
+                              <div class="latest-product__text">
+                                  <h4>Latest Products</h4>
+
+
+                                    <div class="latest-product__slider owl-carousel">
+                                        <div class="latest-prdouct__slider__item">
+                                            <a  href="#" class="latest-product__item ">
+
+                                                <div class="latest-product__item__pic">
+                                                    <img src="img/latest-product/lp-1.jpg" alt="">
+                                                </div >
+
+
+                                            </a>
+                                            <a href="#" class="latest-product__item">
+                                                <div class="latest-product__item__pic">
+                                                    <img src="img/latest-product/lp-2.jpg" alt="">
+                                                </div>
+
+
+                                            </a>
+                                            <a href="#" class="latest-product__item">
+                                                <div class="latest-product__item__pic">
+                                                    <img src="img/latest-product/lp-3.jpg" alt="">
+                                                </div>
+
+
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                              </div>
+                          </div>
+    <img class="col-lg-12 col-md-6 col-sm-6" src="img/banner/testkuanggo2.JPG">
+  </div>
 </div>
 
 <div class="col-lg-12">

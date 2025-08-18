@@ -5,10 +5,12 @@ import java.util.Date;
 import lombok.Data;
 @Data
 public class ReviewVO {
-	private int reviewSeq;	
+	private int reviewSeq;
+	private String itemCode;
 	private int starPoint;	
-	private String reviewdetail;	
+	private String reviewDetail;	
 	private String reviewImageNumber;	
 	private Date createDate;	
-	private String createdBy;	
+	private String createdBy;
+	private String userId;
 }

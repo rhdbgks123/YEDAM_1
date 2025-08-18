@@ -3,24 +3,36 @@
 <mapper namespace="com.yedam.mapper.ItemMapper">
 
 	<select id = "todaySaleList" resultType = "Item">
-     select ag.*
-       from (  
-             select a.item_code,
-                    a.item_name,
-                    a.item_category,
-                    a.sale_price,
-                    a.star_point,
-                    MIN(b.item_image) "item_image",
-                    COUNT(c.item_code) "review_cnt"
-                    from tb_item a
-                    join tb_item_image b
-                    on a.item_code = b.item_code
-                    join tb_item_review c
-                    on b.item_code = c.item_code
-                    where sale_price>0     
-                    group by a.item_code, a.item_name, a.item_category, a.sale_price, a.star_point, c.item_code
-             ) ag
-  <![CDATA[where rownum<=4]]>	
+     select af.item_code,
+         af.item_name,
+         af.item_category,
+         af.sale_price,
+         af.item_image,
+         AVG(c.star_point) AS review_star_point_avg,
+         COUNT(c.review_seq) AS review_cnt
+  from  (select ag.*
+           from (  
+                 select a.item_code,
+                        a.item_name,
+                        a.item_category,
+                        a.sale_price,                        
+                        MIN(b.item_image) AS item_image
+                        
+                        from tb_item a
+                        join tb_item_image b
+                        on a.item_code = b.item_code
+                        
+                        where sale_price>0     
+                        group by a.item_code, a.item_name, a.item_category, a.sale_price
+                 ) ag
+      <![CDATA[
+      where rownum<=4
+      ]]>
+      ) af
+  join tb_item_review c
+  on af.item_code = c.item_code
+  group by af.item_code, af.item_name, af.item_category, af.item_image, af.sale_price
+  
 	</select>
 	
 	<select id = "todayHotList" resultType = "Item">
@@ -45,26 +57,34 @@
   <![CDATA[where rownum<=4]]>	
 	</select>
 	
+
 	<select id = "onClickMenuList" resultType = "Item">
-	    select a.item_code,
-	           a.item_name,                    
-	           CASE WHEN a.sale_price > 0 THEN a.sale_price ELSE a.price END "price",
-	           a.star_point,
-	           MIN(b.item_image) "item_image",
-	           COUNT(c.item_code) "review_cnt"
-	      from tb_item a
-	      join tb_item_image b
-	        on a.item_code = b.item_code
-	      join tb_item_review c
-	        on b.item_code = c.item_code
-	     where 1=1
-       <if test="menuCode != null">
-       	   AND item_category = #{menuCode}
-       </if>
-       <if test="itemName != null">
-           AND item_name like '%' || #{itemName} || '%'
-       </if>
-	     group by a.item_code, a.item_name, a.price, a.sale_price, a.star_point, c.item_code
+    SELECT af.item_code,
+           af.item_name,
+           af.item_category,
+           af.price,
+           af.item_image,
+           AVG(c.star_point) "review_star_point_avg",
+           COUNT(c.review_seq) "review_cnt"
+      FROM (SELECT a.item_code,
+                   a.item_name,
+                   a.item_category,
+                   CASE WHEN a.sale_price > 0 THEN a.sale_price ELSE a.price END AS price,                        
+                   MIN(b.item_image) AS item_image
+              FROM tb_item a
+              JOIN tb_item_image b
+                ON a.item_code = b.item_code
+             WHERE 1=1
+             <if test="menuCode != null">
+                   AND item_category = #{menuCode}
+             </if>
+             <if test="itemName != null">
+                   AND item_name like '%' || #{itemName} || '%'
+             </if> 
+             GROUP BY a.item_code, a.item_name, a.item_category, a.sale_price, a.price) af
+      JOIN tb_item_review c
+        ON af.item_code = c.item_code
+     GROUP BY af.item_code, af.item_name, af.item_category, af.item_image, af.price
 	</select>
 	
 	<select id = "itemDetailView" parameterType="String" resultType = "Item">
