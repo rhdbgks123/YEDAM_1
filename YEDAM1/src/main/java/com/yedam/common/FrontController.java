@@ -22,6 +22,8 @@ import com.yedam.control.MainControl;
 import com.yedam.control.MenuControl;
 import com.yedam.control.MenuListControl;
 import com.yedam.control.MyCartControl;
+import com.yedam.control.MyOrderDetailControl;
+import com.yedam.control.PaymentControl;
 import com.yedam.control.OnClickMenuControl;
 import com.yedam.control.PaymentControl;
 import com.yedam.control.RegisterUserControl;
@@ -80,8 +82,8 @@ public class FrontController extends HttpServlet
 		//마이페이지
 		map.put("/myCart.do", new MyCartControl());  // 장바구니
 		map.put("/payments.do", new PaymentControl());  // 결제
+		map.put("/myOrderDetail.do", new MyOrderDetailControl());
 //		map.put("/myInfo.do", new MyInfoControl());
-//		map.put("/myOrder.do", new MyOrderControl());
 	}
 
 	@Override
