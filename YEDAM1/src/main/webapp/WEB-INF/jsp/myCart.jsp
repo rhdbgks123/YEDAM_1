@@ -10,7 +10,7 @@
 		<form id="cartForm" action="payments.do" method="post">
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="shoping_cart_table">
+					<div class="shoping__cart__table">
 						<table>
 
 							<thead>
@@ -34,8 +34,8 @@
 											value="${c.itemCode }"></td>
 										<td class="shoping_cart_item"><img
 											src="img/cart/cart-1.jpg" alt="${c.itemName }">
-											<h5>${c.itemName }</h5></td>
-										<td class="shoping_cart_spec">스펙이 들어와야해</td>
+											</td>
+										<td class="shoping_cart_spec"><h5>${c.itemName }</h5>스펙이 들어와야해</td>
 										<td class="shoping_cart_price"><span class="itemPrice">
 												<fmt:formatNumber
 													value="${c.salePrice != 0 ? c.salePrice : c.price}" />
@@ -43,7 +43,7 @@
 										<td class="shoping_cart_quantity">
 											<div class="quantity">
 												<div class="pro-qty">
-													<input type="number" value="${c.itemQty }" min="1">
+													<input type="number" name="qty_${c.itemCode}"  value="${c.itemQty }" min="1">
 												</div>
 											</div>
 										</td>

@@ -5,5 +5,5 @@ import java.util.List;
 import com.yedam.vo.MenuVO;
 
 public interface MenuService {
- public List<MenuVO> menuList();
+	public List<MenuVO> menuList();
 }
