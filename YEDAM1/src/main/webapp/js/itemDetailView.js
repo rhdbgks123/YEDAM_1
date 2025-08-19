@@ -19,7 +19,7 @@ for (let imgtag of list) {
 //리뷰 리스트 출력
 
 let page = 1; // page 변경.
-let selectCnt ; // total No.
+
 // 페이지 로딩시점에 실행.
 function showReplyList() {		
 	//기존목록을 지우고...
@@ -31,8 +31,7 @@ function showReplyList() {
 	});
 	//목록출력.
 	svc.replyList({itemCode, page},// 첫번째 param.
-		result => {
-			selectCnt = result.length;
+		result => {			
 			result.forEach(review => {
 				console.log(review);
 				// insertadjacenthtml
@@ -89,8 +88,8 @@ showReplyList(); // 최초목록 출력.
 
 // 페이징목록 출력.
 function showPagingList() {	
-	
-		let totalCnt = selectCnt; // 80
+	console.log(selectCount);
+		let totalCnt = selectCount; // 80
 		let paging = new PageVO(page, totalCnt);
 		console.log(paging);
 		

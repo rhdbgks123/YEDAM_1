@@ -25,14 +25,13 @@ public class ItemDetailViewControl implements Control {
 		String itemCode = req.getParameter("itemCode"); //item 카테고리
 		MainEventService srv = new MainEventServiceImpl();
 		List<ItemVO> list = srv.itemDetailView(itemCode);
+		int selectCount = srv.selectCount(itemCode); //선택한 아이템 총 리뷰갯수 계산해주는 기능추가_250819
 		
 		//권한에 따라 템플릿적용.
 		HttpSession session = req.getSession();
 		String logId = (String) session.getAttribute("logId");
 		
-		if(logId == null) {
-			logId = "guest";
-		}
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		LastItemService srvtwo = new LastItemServiceImpl();
@@ -45,6 +44,7 @@ public class ItemDetailViewControl implements Control {
 			System.out.println("lastitemview카운트 작동안됨");
 		}
 		
+		req.setAttribute("selectCount", selectCount);
 		req.setAttribute("itemInfoList", list);
 		req.setAttribute("itemCode", itemCode);
 		

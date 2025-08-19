@@ -39,4 +39,10 @@ public class MainEventServiceImpl implements MainEventService {
 		return mapper.reviewList(values);		
 	}
 
+	@Override
+	public int selectCount(String itemCode) {
+		return mapper.selectCount(itemCode);
+		
+	}
+
 }
