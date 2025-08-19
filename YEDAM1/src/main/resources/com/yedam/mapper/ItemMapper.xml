@@ -36,25 +36,39 @@
 	</select>
 	
 	<select id = "todayHotList" resultType = "Item">
-     select ag.*
-           from (
-                    select a.item_code,
-                    a.item_name,
-                    a.item_category,
-                    CASE WHEN a.sale_price > 0 THEN a.sale_price ELSE a.price END "price",
-                    a.star_point,
-                    MIN(b.item_image) "item_image",
-                    COUNT(c.item_code) "review_cnt"
-                    from tb_item a
-                    join tb_item_image b
-                    on a.item_code = b.item_code
-                    join tb_item_review c
-                    on b.item_code = c.item_code
-                    --where sale_price>0     
-                    group by a.item_code, a.item_name, a.item_category, a.price, a.sale_price, a.star_point, c.item_code
-                    order by a.star_point desc
-               ) ag
-  <![CDATA[where rownum<=4]]>	
+     select af.item_code,
+            af.item_name,
+            af.price,
+            af.item_image,
+            COUNT(af.review_seq) AS review_cnt,
+            ROUND(AVG(af.star_point), 1) AS review_star_point_avg,
+            af.views
+     from(    select  a.item_code,
+		              a.item_name,
+		              CASE WHEN a.sale_price > 0 THEN a.sale_price ELSE a.price END AS price,
+		              MIN(b.item_image) AS item_image,
+		              c.review_seq,
+		              c.star_point,
+		              ae.views
+              from(   select ag.*  
+                      from(  select COUNT(*) AS views,
+                                    item_code
+                                    from tb_last_item
+                                    where create_date between trunc(sysdate)-1 and trunc(sysdate)+1                
+                                    group by item_code
+                                    order by COUNT(*) desc)ag
+                    <![CDATA[where rownum<=4]]>
+                            ) ae
+		      join tb_item a
+		      on ae.item_code = a.item_code
+		      join tb_item_image b
+		      on a.item_code = b.item_code
+		      join tb_item_review c
+		      on b.item_code = c.item_code
+		      group by a.item_code, a.item_name, a.sale_price, a.price, ae.views, c.star_point, c.review_seq) af
+group by af.item_code, af.item_name, af.price, af.item_image, af.views
+order by  af.views desc
+  
 	</select>
 	
 
@@ -110,27 +124,37 @@
 	</select>
 	
 	<select id = "reviewList" parameterType="map" resultType = "review">
-     select rownum rn,
-       c.*
-from (select a.review_seq,
-              a.star_point,
-              a.reviewdetail,
-              a.create_date, 
-              a.created_by,
-              a.update_date,
-              a.updated_by,
-              COUNT(b.review_image) "review_image_number"
-       from tb_item_review a
-       left join tb_item_review_image b
-       on a.review_seq = b.review_seq
-       where item_code = #{bno}
-       group by a.review_seq, a.star_point, a.reviewdetail, a.create_date, a.created_by, a.update_date, a.updated_by
-       order by create_date desc) c
-where rownum > (#{page} -1) * 5
+     select d.*
+       from   (select  rownum rn,
+                       c.*
+                 from    (select    
+		                          b.review_seq,
+		                          b.star_point,
+		                          b.reviewdetail,
+		                          b.create_date, 
+		                          b.created_by,
+		                          b.update_date,
+		                          b.updated_by,
+		                          a.review_image_number
+                            from   (select review_seq,
+                                           COUNT(review_image) AS review_image_number               
+                                      from   tb_item_review_image
+                                    group by review_seq ) a
+                                    right join tb_item_review b
+                                    on a.review_seq = b.review_seq
+                                    where item_code = #{bno}
+                                    order by create_date desc) c 
+                ) d
+where d.rn > (#{page} -1) * 5
 <![CDATA[
-and rownum <= #{page} * 5
+and d.rn <= #{page} * 5
 ]]>
 	</select>
 	
+	<select id="selectCount" parameterType="String" resultType="int">
+	select COUNT(*)
+from tb_item_review
+where item_code = #{itemCode}
+	</select>
 	
 </mapper>

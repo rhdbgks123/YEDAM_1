@@ -15,6 +15,7 @@ import com.yedam.control.CheckUserControl;
 import com.yedam.control.CheckUserPwControl;
 import com.yedam.control.FindUserControl;
 import com.yedam.control.FindUserFormControl;
+import com.yedam.control.HeaderCartControl;
 import com.yedam.control.ItemDetailViewControl;
 import com.yedam.control.ItemListFormControl;
 import com.yedam.control.ItemReviewControl;
@@ -81,6 +82,7 @@ public class FrontController extends HttpServlet
 		map.put("/onClickMenu.do", new OnClickMenuControl());
 		map.put("/itemDetailView.do", new ItemDetailViewControl());
 		map.put("/reviewList.do", new reviewListControl());
+		map.put("/headerCart.do", new HeaderCartControl());
 		
 		//상품
 		map.put("/searchItemList.do", new SearchItemListControl());

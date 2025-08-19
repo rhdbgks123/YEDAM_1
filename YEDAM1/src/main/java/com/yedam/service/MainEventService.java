@@ -12,4 +12,5 @@ public interface MainEventService {
 	public List<ItemVO> onClickMenuList(String menuCode, String itemName);
 	public List<ItemVO> itemDetailView(String itemCode);
 	public List<ReviewVO> reviewList(Map<String, Object> values);
+	public int selectCount(String itemCode);
 }

@@ -25,12 +25,12 @@ fetch('todaySale.do')
 			                            
 			                        </div>
 			                        <div class="featured__item__text col-6">
-			                            <h6>판매수</h6>
-			                            <h6>재고</h6>               
+			                            <h6>판매금액</h6>
+			                            <h6>${item.salePrice}원</h6>               
 			                        </div>                        
 			                        </div>
 			                        <div class="row">
-			                        <div class="col-12">${item.salePrice}원</div>                        
+			                        <div class="col-12"></div>                        
 			                        </div>
 			                    </div>
 			                </div>`;

@@ -86,6 +86,10 @@ p {
 img {
 	max-width: 100%;
 }
+#logoimg{
+	width: 500px;
+	height: 80px;
+}
 
 input:focus,
 select:focus,

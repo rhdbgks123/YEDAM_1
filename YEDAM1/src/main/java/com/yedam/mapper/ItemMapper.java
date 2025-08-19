@@ -14,4 +14,5 @@ public interface ItemMapper {
 	public List<ItemVO> onClickMenuList(@Param("menuCode") String menuCode,@Param("itemName") String itemName);
 	public List<ItemVO> itemDetailView(String itemCode);
 	public List<ReviewVO> reviewList(Map<String, Object> values);
+	public int selectCount(String itemCode);
 }
