@@ -30,11 +30,8 @@ public class OnClickMenuControl implements Control {
 		
 		//250818 최근 클릭한 상품 목록3개 출력 기능
 		HttpSession session = req.getSession();
-		String logId = (String) session.getAttribute("logId");
+		String logId = (String) session.getAttribute("logId");		
 		
-		if(logId == null) {
-			logId = "guest";
-		}
 		
 		LastItemService srvsec = new LastItemServiceImpl();
 		List<LastItemVO> lastItemlist = srvsec.lastItemViewList(logId);

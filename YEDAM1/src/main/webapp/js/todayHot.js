@@ -17,23 +17,22 @@ fetch('todayHot.do')
 			if(index%2 ==0) {
 				text +='<div class="row" >';
 			}
-			    text += `			<div class="col-6">
-			                <div class="featured__item">
+			    text += `     <div class="col-6">
+			                    <div class="featured__item">
 			                        
 									<a href="itemDetailView.do?itemCode=${item.itemCode }"><img  src="img/featured/${item.itemImage}" ></a>
 			                        <div class="row">
-			                        <div class="featured__item__text col-6">
+			                          <div class="featured__item__text col-6">
 			                            <h6>${item.itemName}</h6>
-			                            <i class="fa fa-heart"></i><span>${item.starPoint}</span><i class="fa fa-pencil"></i><span>${item.reviewCnt}</span>
+			                            <i class="fa fa-heart"></i><span>${item.reviewStarPointAvg}</span><i class="fa fa-pencil"></i><span>${item.reviewCnt}</span>
 			                            
-			                        </div>
+			                          </div>
 			                        <div class="featured__item__text col-6">
-			                            <h6>판매수</h6>
-			                            <h6>재고</h6>               
+			                            <h6>판매금액</h6>
+			                            <h6>${item.price}원</h6>               
 			                        </div>                        
 			                        </div>
-			                        <div class="row">
-			                        <div class="col-12">${item.price}원</div>                        
+			                        <div class="row">			                        		                                                
 			                        </div>
 			                    </div>
 			                </div>`;

@@ -60,11 +60,11 @@ ul {
 
 
 	<div class="col-1 " id="thumbNail">
-		<img src="img/featured/${itemInfoList[1].itemImage }" alt="이미지 1">
-		<img src="img/featured/${itemInfoList[2].itemImage }" alt="이미지 2">
-		<img src="img/featured/${itemInfoList[3].itemImage }" alt="이미지 3">
-		<img src="img/featured/${itemInfoList[4].itemImage }" alt="이미지 4">
-
+	<c:forEach var="i" begin="1" end="${itemInfoList.size()-1}" step="1">
+    <img src="img/featured/${itemInfoList[i].itemImage}" alt="이미지 ${i}">
+   </c:forEach>
+					
+		
 
 	</div>
 
@@ -98,7 +98,7 @@ ul {
 
 				<span>(${itemInfoList[0].reviewCnt } reviews)</span>
 			</div>
-			<div class="product__details__price">$${itemInfoList[0].price }</div>
+			<div class="product__details__price">${itemInfoList[0].price }원</div>
 
 		<div class="product__details__quantity">
 			<div class="quantity">
@@ -233,6 +233,7 @@ ul {
 <!-- Product Details Section End -->
 <script>
 	const itemCode = "${itemCode }";
+	const selectCount = "${selectCount }";
 </script>
 <script src="js/itemDetailViewService.js"></script>
 <script src="js/itemDetailView.js"></script>

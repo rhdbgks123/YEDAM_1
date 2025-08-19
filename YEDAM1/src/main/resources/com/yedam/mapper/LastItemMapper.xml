@@ -23,13 +23,8 @@ from ( select a.user_id,
        from tb_last_item a
        join tb_item_image b
        on a.item_code = b.item_code
-       where a.create_date between trunc(sysdate)-1 and trunc(sysdate)+1
-        <if test="userId != null">
-        AND user_id = #{userId}
-        </if>
-        <if test="userId == guest">
-        AND user_id = 'guest'
-        </if> 
+       where a.create_date between trunc(sysdate)-1 and trunc(sysdate)+1        
+        AND user_id = #{userId}        
         group by a.user_id, a.item_code                
         order by MAX(a.create_date) desc) a
 <![CDATA[
