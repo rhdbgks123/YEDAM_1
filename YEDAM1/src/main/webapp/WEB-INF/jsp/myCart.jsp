@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
+<head>
+</head>
 
 
 <h3 id="itemCode" style="display:none;">${empty itemCode ? '' : itemCode}</h3>
@@ -70,14 +72,14 @@
 							<li>총 배송비 <span id="deliveryPrice"></span></li>
 							<li>총 주문 금액 <span id="orderTotal"></span></li>
 						</ul>
-						<a href="#" class="primary-btn">결제하기</a>
+						<a href="#" id="openPayModal" class="primary-btn">결제하기</a> 
+						
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
 </section>
-<!-- Shoping Cart Section End -->
 
 <!--  js 연결 -->
 <script src="<c:url value='/js/myCart.js'/>" defer></script>

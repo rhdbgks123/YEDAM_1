@@ -2,39 +2,43 @@
  * 
  */
 
-// read-only
-const fetch = require('node-fetch');
+// pay_payments.service.js
+const crypto = require('crypto');
 
-// TODO: 개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
-// @docs https://docs.tosspayments.com/reference/using-api/api-keys
-const secretKey = 'test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6';
-
-async function confirmPayment(paymentInfo = {}) {
-  const { paymentKey, orderId, amount } = paymentInfo;
-
-  // 토스페이먼츠 API는 시크릿 키를 사용자 ID로 사용하고, 비밀번호는 사용하지 않습니다.
-  // 비밀번호가 없다는 것을 알리기 위해 시크릿 키 뒤에 콜론을 추가합니다.
-  // @docs https://docs.tosspayments.com/reference/using-api/authorization#%EC%9D%B8%EC%A6%9D
-  const encryptedSecretKey =
-    'Basic ' + Buffer.from(secretKey + ':').toString('base64');
-
-  // ------ 결제 승인 API 호출 ------
-  // @docs https://docs.tosspayments.com/guides/v2/payment-widget/integration#결제-승인-api-호출하기
-  const response = await fetch(
-    'https://api.tosspayments.com/v1/payments/confirm',
-    {
-      method: 'POST',
-      body: JSON.stringify({ orderId, amount, paymentKey }),
-      headers: {
-        Authorization: encryptedSecretKey,
-        'Content-Type': 'application/json',
-      },
-    },
-  );
-  const data = await response.json();
-  console.log(data);
-
-  return data;
+const TOSS_SECRET_KEY = process.env.TOSS_SECRET_KEY;
+if (!TOSS_SECRET_KEY) {
+  throw new Error('TOSS_SECRET_KEY is not set');
 }
 
-module.exports = { confirmPayment };
+// Node 18+는 전역 fetch 사용 가능. (Node 16/17이면 node-fetch@2 사용)
+async function tossConfirm({ paymentKey, orderId, amount }) {
+  const url = 'https://api.tosspayments.com/v1/payments/confirm';
+
+  // Authorization: Basic base64(`${secretKey}:`)
+  const basicToken = Buffer.from(`${TOSS_SECRET_KEY}:`).toString('base64');
+
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${basicToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ paymentKey, orderId, amount }),
+  });
+
+  const json = await resp.json();
+
+  if (!resp.ok) {
+    // 토스 측 에러를 그대로 전달해주는 게 디버깅에 좋음
+    const err = new Error(json.message || 'Toss confirm failed');
+    err.status = resp.status;
+    err.details = json;
+    throw err;
+  }
+  return json;
+}
+
+exports.confirmPayment = async ({ paymentKey, orderId, amount }) => {
+  // (선택) 여기서도 금액/주문 검증 로직 보강 가능
+  return await tossConfirm({ paymentKey, orderId, amount });
+};
