@@ -1,7 +1,9 @@
 package com.yedam.control;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -80,15 +82,25 @@ public class PaymentControl implements Control {
 		session.setAttribute("checkoutDeliveryFee", deliveryFee);
 		session.setAttribute("checkoutAmount", amount);
 
+		// 3.5) ✅ 결제위젯용 customerKey는 ASCII-safe 로 변환 (한글 ID 대비)
+		String safeCustomerKey;
+		if (userId.matches("^[A-Za-z0-9_-]{1,200}$")) {
+			safeCustomerKey = userId;
+		} else {
+			safeCustomerKey = java.util.Base64.getUrlEncoder().withoutPadding()
+					.encodeToString(userId.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+		}
+
 		// 4) 모달로 넘길 값 셋팅
 		req.setAttribute("orderNo", checkoutId); // 토스 orderId로 사용
 		req.setAttribute("amount", amount);
 		req.setAttribute("orderName", "장바구니 상품 결제"); // 필수! 간단명으로 OK
 		req.setAttribute("customerName", userId);
+		req.setAttribute("customerKey", userId.replaceAll("[^a-zA-Z0-9_-]", "_"));
 		req.setAttribute("successUrl", req.getContextPath() + "/payApiSuccess.do");
 		req.setAttribute("failUrl", req.getContextPath() + "/payApiFail.do");
 
-		req.getRequestDispatcher("/WEB-INF/jsp/payment.jsp").forward(req, res);
+		req.getRequestDispatcher("/WEB-INF/jsp/paymentAPI.jsp").forward(req, res);
 	}
 
 	private int parseInt(String s, int def) {
