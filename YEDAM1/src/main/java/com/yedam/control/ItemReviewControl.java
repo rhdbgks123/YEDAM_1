@@ -20,6 +20,11 @@ public class ItemReviewControl implements Control {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
+		req.setCharacterEncoding("UTF-8");             
+	    res.setCharacterEncoding("UTF-8");
+	    res.setContentType("text/html; charset=UTF-8");
+		
+		
 		String userId = (String) req.getSession().getAttribute("logId");
 
         String itemCode = req.getParameter("itemCode");
@@ -31,8 +36,6 @@ public class ItemReviewControl implements Control {
         review.setStarPoint(starPoint);
 		review.setReviewDetail(detail);
 		review.setUserId(userId);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
 		
 		ItemReviewService svc = new ItemReviewServiceImpl();
 		boolean result = svc.writeReview(review);
