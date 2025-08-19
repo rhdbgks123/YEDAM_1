@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 	
 	// 결제하기 컨트롤 방식
-	document.querySelector('.primary-btn').addEventListener('click', function(){
+	document.querySelector('#openPayModal').addEventListener('click', function(){
 		let selected = document.querySelectorAll('input[name="selectItem"]:checked');
 		
 		if(selected.length == 0){
@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		document.querySelector('#cartForm').submit();
 		
-	})
+	}) 
+	
 	
 });

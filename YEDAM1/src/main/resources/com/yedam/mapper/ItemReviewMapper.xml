@@ -8,12 +8,14 @@
 			item_code,
 			star_point,
 			reviewDetail,
-			created_By)
+			created_By,
+			updated_By)
 		VALUES (
-			seq_tb_item_review.nextval,
+			dev.seq_tb_item_review.nextval,
 			#{itemCode},
 			#{starPoint},
 			#{reviewDetail},
+			#{userId},
 			#{userId})
 	</insert>
 	

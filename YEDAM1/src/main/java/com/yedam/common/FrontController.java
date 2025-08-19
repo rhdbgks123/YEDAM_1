@@ -39,6 +39,9 @@ import com.yedam.control.TodayHotControl;
 import com.yedam.control.TodaySaleControl;
 import com.yedam.control.UserinfoChangeControl;
 import com.yedam.control.UserinfoChangeFormControl;
+import com.yedam.control.payApiControl;
+import com.yedam.control.payApiFailControl;
+import com.yedam.control.payApiSuccessControl;
 import com.yedam.control.reviewListControl;
 
 public class FrontController extends HttpServlet
@@ -93,7 +96,10 @@ public class FrontController extends HttpServlet
 		map.put("/payments.do", new PaymentControl());  // 결제
 		map.put("/myOrderDetail.do", new MyOrderDetailControl()); // 주문내역
 		map.put("/itemReview.do", new ItemReviewControl()); // 리뷰작성
-		map.put("/itemReviewForm.do", new ItemReviewFormControl()); // 리뷰작성
+		map.put("/itemReviewForm.do", new ItemReviewFormControl()); // 리뷰작성화면
+		map.put("/payApi.do", new payApiControl()); // 결제api
+		map.put("/payApiSuccess.do", new payApiSuccessControl()); // 결제api
+		map.put("/payApiFail.do", new payApiFailControl()); // 결제api
 		
 	}
 

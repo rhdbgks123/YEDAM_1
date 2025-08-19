@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+/* 별점 전체 영역 */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse; /* 오른쪽에서 왼쪽으로 별 채움 */
+  justify-content: flex-start;
+}
+
+/* 실제 라디오버튼 숨김 */
+.star-rating input {
+  display: none;
+}
+
+/* 별 모양 라벨 */
+.star-rating label {
+  font-size: 2rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+/* 체크된 별부터 왼쪽까지 색칠 */
+.star-rating input:checked ~ label {
+  color: #ffc107; /* 노란색 */
+}
+
+/* 마우스 올렸을 때 효과 */
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #ffdb58;
+}
+
+textarea { width:100%; min-height:150px; resize:vertical; }
+    .field { margin-top:16px; }
+    .action-row { display:flex; gap:10px; margin-top:16px; }

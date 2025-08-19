@@ -35,7 +35,7 @@
               <td>${d.itemQty}</td>
               <td>₩<fmt:formatNumber value="${d.itemPrice}" type="number"/></td>
               <td>₩<fmt:formatNumber value="${d.itemQty * d.itemPrice}" type="number"/></td>
-              <td><a href="itemReviewForm.do" class="primary-btn" style="padding:6px 12px;">리뷰작성</a></td>
+              <td><a href="itemReviewForm.do?orderNo=${d.orderNo }&itemCode=${d.itemCode }" class="primary-btn" style="padding:6px 12px;">리뷰작성</a></td>
             </tr>
           </c:forEach>
         </tbody>

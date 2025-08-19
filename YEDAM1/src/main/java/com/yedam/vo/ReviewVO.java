@@ -12,5 +12,6 @@ public class ReviewVO {
 	private String reviewImageNumber;	
 	private Date createDate;	
 	private String createdBy;
+	private String updatedBy;
 	private String userId;
 }
