@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="main.do"><img src="img/logo.png" alt=""></a>
+                        <a href="main.do"><img src="img/logo1.png" alt="" id="logoimg"></a>
                     </div>
                 </div>
                 <div class="col-lg-7" style="margin-top:30px ">
@@ -51,8 +51,7 @@
                 <div class="col-lg-2">
                     <div class="header__cart">
                         <ul>
-                            <li class="header_cart"><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="myCart.do"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
@@ -62,5 +61,5 @@
                 <i class="fa fa-bars"></i>
             </div>
         </div>
-                            
+	<script src="js/header.js"></script>   
     </header>
