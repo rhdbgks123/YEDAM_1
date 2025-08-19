@@ -121,7 +121,7 @@ from (select a.review_seq,
               a.updated_by,
               COUNT(b.review_image) "review_image_number"
        from tb_item_review a
-       join tb_item_review_image b
+       left join tb_item_review_image b
        on a.review_seq = b.review_seq
        where item_code = #{bno}
        group by a.review_seq, a.star_point, a.reviewdetail, a.create_date, a.created_by, a.update_date, a.updated_by
