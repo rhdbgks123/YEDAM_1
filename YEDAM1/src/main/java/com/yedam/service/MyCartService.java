@@ -10,4 +10,5 @@ public interface MyCartService {
 	public List<MyBasketVO> cartList(String userId);
 	public boolean addMyCart(MyBasketVO cart);
 	public boolean removeMyCart(String itemCode,String UserId);
+	public MyBasketVO searchCartCount(String userId);
 }

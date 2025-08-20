@@ -41,4 +41,9 @@ public class MyCartServiceImpl implements MyCartService {
 
 	}
 
+	@Override
+	public MyBasketVO searchCartCount(String userId) {
+	
+		return mapper.selectCartCount(userId);
+	}
 }

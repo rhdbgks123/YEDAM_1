@@ -273,7 +273,8 @@ CREATE SEQUENCE ORDER_SEQ
   INCREMENT BY 1      
   NOCACHE             
   NOCYCLE;
-
+create sequence seq_tb_item_review
+start with 500;
 
 CREATE TABLE TB_ORDERDETAIL (
     ORDER_NO VARCHAR2(20) NOT NULL,

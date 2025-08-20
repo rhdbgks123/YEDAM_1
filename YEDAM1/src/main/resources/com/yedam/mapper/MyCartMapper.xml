@@ -51,5 +51,16 @@
 		AND         user_id = #{userId}
 	</delete>
 	
+	<select id="selectCartCount" parameterType="String" resultType="myCart">
+	SELECT COUNT (*) total_count
+	     , SUM (CASE WHEN sale_price = 0 THEN i.price
+	            ELSE i.sale_price
+	             END) total_price
+	  FROM tb_basket b
+	  JOIN tb_item i
+		ON i.item_code = b.item_code
+	 WHERE b.user_id = #{userId}
+	 GROUP BY user_id
+	</select>
 	
 </mapper>
