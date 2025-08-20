@@ -14,7 +14,10 @@ public class ItemReviewServiceImpl implements ItemReviewService{
 	@Override
 	public boolean writeReview(ReviewVO review) {
 		int r = mapper.registerReview(review);
-		if(r > 0) {
+		if(r > 0 && review.getImages() != null) {
+			for(String img : review.getImages()) {
+				mapper.registerReviewImage(review.getReviewSeq(), img, review.getUserId());
+			}
 			sqlSession.commit();
 			return true;
 		}

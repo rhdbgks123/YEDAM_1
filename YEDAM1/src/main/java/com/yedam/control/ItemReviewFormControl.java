@@ -37,10 +37,18 @@ public class ItemReviewFormControl implements Control {
             }
         }
 		
+		OrderDetailVO item = null;
+        for (OrderDetailVO d : list) {
+            if (itemCode.equals(d.getItemCode())) {
+                item = d;
+                break;
+            }
+        }
+		
 		req.setAttribute("orderNo", orderNo);
 		req.setAttribute("itemCode", itemCode);
 		req.setAttribute("orderHeader", orderHeader);
-		req.setAttribute("list", list);
+		req.setAttribute("item", item);
         
         req.getRequestDispatcher("WEB-INF/jsp/itemReviewForm.jsp").forward(req, res);
 		

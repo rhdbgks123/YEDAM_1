@@ -1,6 +1,7 @@
 package com.yedam.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 @Data
@@ -16,6 +17,6 @@ public class ReviewVO {
 	private String userId;
 	private String title;
 	private String content;
-	private String image;
+	private List<String> images;
 	private String writer;
 }

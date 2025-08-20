@@ -7,7 +7,7 @@
 <c:forEach var="h" items="${headers}" varStatus="st">
   <c:set var="curDate" value="${empty h.ORDERDATE ? '' : h.ORDERDATE}"/>
   <c:if test="${st.first or prevDate != curDate}">
-    <h3 style="margin-top:24px;">${curDate} 주문 내역</h3>
+    <h3 style="margin-top:24px;">주문 일자 : ${curDate}</h3>
     <c:set var="prevDate" value="${curDate}"/>
   </c:if>
 
@@ -43,7 +43,7 @@
 				</c:otherwise>
 			    </c:choose></a>
 			  </td>
-			  <td><h5>${d.itemName}</h5>스펙이 들어와야해</td>
+			  <td><h5>${d.itemName}</h5>${d.itemName} 스펙</td>
               <td>₩<fmt:formatNumber value="${d.itemPrice}" type="number"/></td>
               <td>${d.itemQty}</td>
               <td>₩<fmt:formatNumber value="${d.itemQty * d.itemPrice}" type="number"/></td>
