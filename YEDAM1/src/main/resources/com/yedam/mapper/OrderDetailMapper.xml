@@ -16,18 +16,28 @@
     </select>
     
    	<select id="selectOrderDetailList" parameterType="String" resultType="com.yedam.vo.OrderDetailVO">
-        SELECT
-   			d.order_no         AS orderNo,
-   			d.orderdetail_no   AS orderDetailNo,
-   			d.item_code        AS itemCode,
-   			i.item_name        AS itemName,
-   			d.item_qty         AS itemQty,
-   			d.item_price       AS itemPrice,
-   			o.order_date       AS orderDate    
- 		FROM 	TB_ORDERDETAIL d
- 		JOIN    TB_ORDER o ON o.order_no = d.order_no
- 		JOIN 	TB_ITEM  i ON i.item_code = d.item_code
-		WHERE 	d.order_no = #{orderNo}
+        SELECT   a.*,
+                 MIN(im.item_image) AS item_image
+	    FROM     (SELECT
+	   		   	  d.order_no         AS orderNo,
+	   			  d.orderdetail_no   AS orderDetailNo,
+	   			  d.item_code        AS itemCode,
+	   			  i.item_name        AS itemName,
+	   			  d.item_qty         AS itemQty,
+	   			  d.item_price       AS itemPrice,
+	   			  o.order_date       AS orderDate    
+	 		      FROM 	  TB_ORDERDETAIL d
+	 		      JOIN    TB_ORDER o ON o.order_no = d.order_no
+	 		      JOIN 	  TB_ITEM  i ON i.item_code = d.item_code
+			      WHERE   d.order_no = #{orderNo}) a
+		LEFT JOIN tb_item_image im ON im.item_code = a.itemCode
+		GROUP BY a.orderNo,
+				 a.orderDetailNo,
+				 a.itemCode,
+				 a.itemName,
+				 a.itemQty,
+				 a.itemPrice,
+				 a.orderDate
    </select>
    
 </mapper>

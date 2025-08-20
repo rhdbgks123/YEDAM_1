@@ -2,6 +2,9 @@
  *  myCart 내 장바구니 
  */
 document.addEventListener('DOMContentLoaded', function() {
+	let chk = rmItem;
+	console.log(rmItem);
+	console.log(chk);
 	// 콤마/원 제거
 	function toNumber(str) {
 		if (!str) return 0;
@@ -151,5 +154,25 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 	}) 
 	
+	// 온클릭 버튼 삭제
+	document.querySelectorAll('.icon_close').forEach(item => {
+		item.addEventListener('click', function(e) {
+			let rmCode = e.target.dataset.itemcode;
+			fetch('removeItem.do?itemCode=' + rmCode)
+				.then(resp => resp.json())
+				.then(result => {
+					if (result.retCode == "OK") {
+						alert("삭제성공");
+						location.reload(true);
+					}
+					else {
+						alert("실패")
+					}
+				})
+				.catch(err => console.error(err))
+		})
+		//item.parentElement.parentElement.children[0].in
+		//fetch()
+	})
 	
 });

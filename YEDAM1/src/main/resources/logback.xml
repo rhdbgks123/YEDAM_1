@@ -19,6 +19,11 @@
   <logger name="com.yedam.mapper.MenuMapper">
     <level value="debug"/>
   </logger>
+
+  <logger name="com.yedam.mapper.MyCartMapper">
+	<level value="debug" />
+  </logger>
+  
   
   <root level="error">
     <appender-ref ref="stdout"/>

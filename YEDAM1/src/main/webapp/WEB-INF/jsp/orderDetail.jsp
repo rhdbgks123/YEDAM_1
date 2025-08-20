@@ -21,9 +21,10 @@
       <table>
         <thead>
           <tr>
-            <th style="width:44%">상품명</th>
-            <th style="width:12%">수량</th>
+            <th style="width:18%">상품</th>
+            <th style="width:26%">스펙</th>
             <th style="width:16%">가격</th>
+            <th style="width:12%">수량</th>
             <th style="width:16%">총액</th>
             <th style="width:12%"></th>
           </tr>
@@ -31,9 +32,20 @@
         <tbody>
           <c:forEach var="d" items="${h.details}">
             <tr>
-              <td style="text-align:left">${d.itemName}</td>
-              <td>${d.itemQty}</td>
+			  <td class="shoping_cart_item">
+			    <a href="itemDetailView.do?itemCode=${d.itemCode}">
+			    <c:choose>
+				<c:when test="${not empty d.itemImage}">
+				  <img src="img/featured/${d.itemImage}" alt="${d.itemName}">
+				</c:when>
+				<c:otherwise>
+				  <img src="img/cart/cart-2.jpg" alt="${d.itemName}">
+				</c:otherwise>
+			    </c:choose></a>
+			  </td>
+			  <td><h5>${d.itemName}</h5>스펙이 들어와야해</td>
               <td>₩<fmt:formatNumber value="${d.itemPrice}" type="number"/></td>
+              <td>${d.itemQty}</td>
               <td>₩<fmt:formatNumber value="${d.itemQty * d.itemPrice}" type="number"/></td>
               <td><a href="itemReviewForm.do?orderNo=${d.orderNo }&itemCode=${d.itemCode }" class="primary-btn" style="padding:6px 12px;">리뷰작성</a></td>
             </tr>

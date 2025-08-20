@@ -13,4 +13,5 @@ public class OrderDetailVO {
 	private int itemPrice;
 	private String itemName;
 	private Date orderDate;
+	private String itemImage;
 }

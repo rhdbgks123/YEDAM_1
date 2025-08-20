@@ -32,6 +32,7 @@ import com.yedam.control.OnClickMenuControl;
 import com.yedam.control.PaymentControl;
 import com.yedam.control.RegisterUserControl;
 import com.yedam.control.RegisterUserFormControl;
+import com.yedam.control.RemoveItemControl;
 import com.yedam.control.RemoveSingControl;
 import com.yedam.control.SearchItemListControl;
 import com.yedam.control.SendMailUserInfoControl;
@@ -93,6 +94,7 @@ public class FrontController extends HttpServlet
 		
 		//마이페이지
 		map.put("/myCart.do", new MyCartControl());  // 장바구니
+		map.put("/removeItem.do", new RemoveItemControl());  // 장바구니에 목록 삭제
 		map.put("/payments.do", new PaymentControl());  // 결제
 		map.put("/myOrderDetail.do", new MyOrderDetailControl()); // 주문내역
 		map.put("/itemReview.do", new ItemReviewControl()); // 리뷰작성
