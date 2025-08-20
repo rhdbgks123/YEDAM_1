@@ -42,7 +42,8 @@ async function checkUser()
 	
 	if(result.retCode == 'OK')
 	{
-		signcheck.focus();
+		alert("메일 발송 완료!");
+		signkey.focus();
 		usersign = result.usersign;
 		userId = result.userId;
 	}

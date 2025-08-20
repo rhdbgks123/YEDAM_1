@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <!DOCTYPE html>
   <html>
 
@@ -24,10 +25,13 @@
             <input type="checkbox"> Remember me.
           </label>
         </div> -->
-            <a class="outer-link pull-left" href="#/forgot">아이디/비밀번호 찾기</a>
+            <a class="outer-link pull-left" href="findUserForm.do">아이디/비밀번호 찾기</a>
             <button type="submit" class="btn btn-submit btn-default pull-right">로그인</button>
-            <input type="button" id="signup" class="btn btn-submit btn-default pull-right" value="회원가입"></input>
+            <input type="button" id="signup" class="btn btn-submit btn-default pull-right" value="회원가입"onclick="location.href='registerUserForm.do'"></input>
           </form>
+          <c:if test="${not empty errorMsg}">
+		    <p style="color:red;">${errorMsg}</p>
+		</c:if>
         </div>
       </div>
     </div>
