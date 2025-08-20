@@ -130,7 +130,7 @@ ul {
     </div>
     <div class="actions">
       <button id="btnContinue">쇼핑 계속하기</button>
-      <a id="btnGoCart" class="primary" href="mycart.do">장바구니 가기</a>
+      <a id="btnGoCart" class="primary" href="myCart.do">장바구니 가기</a>
     </div>
   </div>
   

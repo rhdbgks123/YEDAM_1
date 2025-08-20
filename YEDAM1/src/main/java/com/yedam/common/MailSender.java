@@ -12,7 +12,7 @@ public class MailSender
 		String host = "smtp.naver.com";
 		String port = "587";
 		String username = "rhdbgks123@naver.com"; // 본인 네이버 메일 주소
-		String password = "";//"XJZHMKWPMTFU"; // 메일 비밀번호
+		String password = "XJZHMKWPMTFU";//"XJZHMKWPMTFU"; // 메일 비밀번호
 
 		// 수신자 및 메일 내용
 		// SMTP 서버 설정

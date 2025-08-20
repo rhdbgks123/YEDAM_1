@@ -2,6 +2,7 @@ package com.yedam.control;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +25,8 @@ public class LoginControl implements Control {
 		UserVO user = srv.searchUser(id, psw);
 		if(user == null) 
 		{
-			
+		    req.setAttribute("errorMsg", "아이디 또는 비밀번호가 올바르지 않습니다.");
+			req.getRequestDispatcher("WEB-INF/jsp/login_form.jsp").forward(req, res);
 		}
 		else
 		{

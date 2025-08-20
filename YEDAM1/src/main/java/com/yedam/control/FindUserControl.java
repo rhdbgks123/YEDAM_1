@@ -44,13 +44,13 @@ public class FindUserControl implements Control {
 		
 		boolean check = srv.checkUserMail(user, signkey);
 		
-		UserVO users = srv.searchUserId(user); 
-		String uid = users.getUserId();
 		
 		System.out.print(check);
 		// DB처리 -> 반환
 		if(check)
 		{
+			UserVO users = srv.searchUserId(user); 
+			String uid = users.getUserId();
 			MailSender.send(uEmail, uName +" 님 메일을 인증해주세요.(YEDAM 1조)", uName + "님 인증번호는 "+ signkey + " 입니다.");
 			map.put("retCode", "OK");
 			map.put("data", check);
