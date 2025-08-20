@@ -35,9 +35,16 @@
 									<tr style="text-align: center">
 										<td><input type="checkbox" name="selectItem"
 											value="${c.itemCode }"></td>
-										<td class="shoping_cart_item"><img
-											src="img/cart/cart-1.jpg" alt="${c.itemName }">
-											</td>
+										<td class="shoping_cart_item">
+										<c:choose>
+										  <c:when test="${not empty c.itemImage}">
+  										    <img src="img/featured/${c.itemImage }.jpg" alt="${c.itemName }">
+										  </c:when>
+										  <c:otherwise>
+  										    <img src="img/cart/cart-1.jpg" alt="${c.itemName }">
+										  </c:otherwise>
+										</c:choose>
+										</td>
 										<td class="shoping_cart_spec"><h5>${c.itemName }</h5>스펙이 들어와야해</td>
 										<td class="shoping_cart_price"><span class="itemPrice">
 												<fmt:formatNumber

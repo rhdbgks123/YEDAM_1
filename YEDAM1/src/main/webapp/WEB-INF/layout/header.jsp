@@ -21,8 +21,8 @@
                                 <a href="loginForm.do"><i class="fa fa-user"></i> Login</a>
                                 </c:when>
                                 <c:otherwise>
-                                <a href="myCart.do"><i class="fa fa-user"></i> 마이페이지</a>
-                                <a href="logout.do"><i class="fa fa-user"></i> 로그아웃</a>
+                                <a href="myCart.do"><i class="fa fa-user"></i> MyPage</a>
+                                <a href="logout.do"><i class="fa fa-user"></i> Logout</a>
                                 </c:otherwise>
                             	</c:choose>
                             </div>

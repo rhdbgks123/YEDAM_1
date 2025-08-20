@@ -11,4 +11,5 @@ public class MyBasketVO {
 	private int salePrice;
 	private int price;
 	private int deliveryPrice;
+	private String itemImage;
 }
