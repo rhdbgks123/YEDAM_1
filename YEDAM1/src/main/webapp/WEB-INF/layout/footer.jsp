@@ -6,7 +6,7 @@
                 <div class="col-lg-5 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                            <a href="main.do"><img src="img/logo1.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 대구광역시 중구 중앙대로 403 (남일동 135-1, 5층) <br>(주)예담직업전문학교</li>

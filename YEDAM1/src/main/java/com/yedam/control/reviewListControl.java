@@ -28,15 +28,15 @@ public class reviewListControl implements Control {
 		Map<String, Object> map = new HashMap<>();
 		map.put("bno", bno);
 		map.put("page", page);
-		List<ReviewVO> list = srv.reviewList(map);
+		List<String> list = srv.reviewList(map);
 		
 		
 		//Gson 라이브러리 활용해서 json문자열 만들기.
 		Gson gson = new GsonBuilder().create();
-		String json = gson.toJson(list);
+		String json = gson.toJson(list); //gson 사용 안해도 html에서 읽어들여짐
 		
 		// 출력 스트림.
-		res.getWriter().print(json);
+		res.getWriter().print(list);
 
 
 	}

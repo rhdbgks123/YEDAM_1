@@ -35,7 +35,7 @@ public class MainEventServiceImpl implements MainEventService {
 	}
 
 	@Override
-	public List<ReviewVO> reviewList(Map<String, Object> values) {
+	public List<String> reviewList(Map<String, Object> values) {
 		return mapper.reviewList(values);		
 	}
 

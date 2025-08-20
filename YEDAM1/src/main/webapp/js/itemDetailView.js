@@ -33,7 +33,7 @@ function showReplyList() {
 	svc.replyList({itemCode, page},// 첫번째 param.
 		result => {			
 			result.forEach(review => {
-				console.log(review);
+				//console.log(review);
 				// insertadjacenthtml
 				let target = document.querySelector('div.content>ul');
 				
@@ -47,9 +47,9 @@ function showReplyList() {
 				
 				
 				let images = "";
-				let code = String(review.reviewSeq).padStart(4, "0");
-				for (let i = 0; i < review.reviewImageNumber; i++) {
-				  images += `<img class="col-2 " src="img/review/review_${code}_${i+1}.jpg" alt="이미지 ${i+1}">`;
+				//let code = String(review.reviewSeq).padStart(4, "0");
+				for (let i = 0; i < review.images.length; i++) {					
+				  images += `<img class="col-2 " src="img/review/${review.images[i]}" alt="이미지 ${i+1}">`;
 				}
 				
 				let today = new Date(review.createDate);
