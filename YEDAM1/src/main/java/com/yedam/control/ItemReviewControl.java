@@ -1,15 +1,13 @@
 package com.yedam.control;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.yedam.common.Control;
 import com.yedam.service.ItemReviewService;
 import com.yedam.service.ItemReviewServiceImpl;
@@ -30,12 +28,30 @@ public class ItemReviewControl implements Control {
         String itemCode = req.getParameter("itemCode");
         int starPoint = Integer.parseInt(req.getParameter("starPoint"));
         String detail = req.getParameter("reviewDetail");
+        String upload = req.getServletContext().getRealPath("img/review");
+        
+        MultipartRequest mr = new MultipartRequest(
+				req, // 요청정보
+				upload, // 업로드 경로
+				1024 * 1024 * 5, // 최대 업로드 파일 크기 5MB
+				"UTF-8", // 인코딩 방식
+				new DefaultFileRenamePolicy() // 동일한 이름이 있으면 rename
+		);
+        
+        String title = mr.getParameter("title");
+		String writer = mr.getParameter("userId");
+		String content = mr.getParameter("content");
+		String img = mr.getFilesystemName("images");
+        
+        
         
         ReviewVO review = new ReviewVO();
         review.setItemCode(itemCode);
         review.setStarPoint(starPoint);
 		review.setReviewDetail(detail);
 		review.setUserId(userId);
+		
+		
 		
 		ItemReviewService svc = new ItemReviewServiceImpl();
 		boolean result = svc.writeReview(review);

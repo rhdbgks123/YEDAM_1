@@ -3,16 +3,26 @@
 <mapper namespace="com.yedam.mapper.MyCartMapper">
 
 	<select id="selectCartList" parameterType="String" resultType="com.yedam.vo.MyBasketVO">
-		SELECT  b.user_id,
-		        b.item_code,
-		        b.item_qty,
-		        i.item_name,
-		        i.sale_price,
-		        i.price,
-		        i.delivery_price
-		FROM    tb_basket  b
-		JOIN    tb_item    i  ON i.item_code = b.item_code
-		WHERE   b.user_id = #{userId}
+		SELECT  a.* ,
+		        MIN(im.item_image) AS item_image
+		FROM    (SELECT  b.user_id,
+		         b.item_code,
+		         b.item_qty,
+		         i.item_name,
+		         i.sale_price,
+		         i.price,
+		         i.delivery_price
+				 FROM    tb_basket  b
+				 JOIN    tb_item    i  ON i.item_code = b.item_code
+				 WHERE   b.user_id = #{userId}) a
+		JOIN     tb_item_image im ON im.item_code = a.item_code
+        GROUP BY a.user_id,
+		         a.item_code,
+		         a.item_qty,
+		         a.item_name,
+		         a.sale_price,
+		         a.price,
+		         a.delivery_price
 	</select>
 	
 	<insert id ="insertMyCart" parameterType="myCart">
@@ -34,6 +44,12 @@
 		UPDATE
 		   SET bas.item_qty = bas.item_qty + new.item_qty
 	</insert>
+	
+	<delete id="deleteItemList">
+		delete from tb_basket
+		where       item_code = #{itemCode}
+		AND         user_id = #{userId}
+	</delete>
 	
 	<select id="selectCartCount" parameterType="String" resultType="myCart">
 	SELECT COUNT (*) total_count

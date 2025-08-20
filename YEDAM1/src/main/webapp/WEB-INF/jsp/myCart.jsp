@@ -24,7 +24,7 @@
 									<th style="width: 36%">스펙</th>
 									<th style="width: 12%">가격</th>
 									<th style="width: 15%">수량</th>
-									<th style="width: 14%">총 금액</th>
+									<th style="width: 14%">총액</th>
 									<th style="width: 48px"></th>
 								</tr>
 							</thead>
@@ -36,14 +36,16 @@
 										<td><input type="checkbox" name="selectItem"
 											value="${c.itemCode }"></td>
 										<td class="shoping_cart_item">
+										<a href="itemDetailView.do?itemCode=${c.itemCode}">
 										<c:choose>
 										  <c:when test="${not empty c.itemImage}">
-  										    <img src="img/featured/${c.itemImage }.jpg" alt="${c.itemName }">
+  										    <img src="img/featured/${c.itemImage}" alt="${c.itemName}">
 										  </c:when>
 										  <c:otherwise>
-  										    <img src="img/cart/cart-1.jpg" alt="${c.itemName }">
+  										    <img src="img/cart/cart-2.jpg" alt="${c.itemName}">
 										  </c:otherwise>
 										</c:choose>
+										</a>
 										</td>
 										<td class="shoping_cart_spec"><h5>${c.itemName }</h5>스펙이 들어와야해</td>
 										<td class="shoping_cart_price"><span class="itemPrice">
@@ -59,8 +61,8 @@
 										</td>
 										<td class="shoping_cart_total"><span class="itemTotal"></span>
 										</td>
-										<td class="shoping_cart_item_close"><span
-											class="icon_close"></span></td>
+										<td class="shoping_cart_item_close">
+										<span class="icon_close" data-itemCode="${c.itemCode}"></span></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -89,4 +91,5 @@
 </section>
 
 <!--  js 연결 -->
+<script>const rmItem = "${cartList }";</script>
 <script src="<c:url value='/js/myCart.js'/>" defer></script>
