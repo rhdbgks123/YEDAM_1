@@ -44,7 +44,8 @@
   <div class="head">리뷰 작성</div>
   <div class="body">
   
-    <form action="itemReview.do" method="post">
+    <form id="reviewForm" action="itemReview.do" method="post" enctype="multipart/form-data"
+      onsubmit="return validateReview(this)">
 
         <input type="hidden" name="orderNo"  value="${orderNo}">
         <input type="hidden" name="itemCode" value="${itemCode}">
@@ -83,8 +84,8 @@
           <th></th>
           <td>
             <div class="action-row">
-              <a href="#">취소하기</a>
-              <button type="submit" class="site-btn">등록하기</button>
+              <a href="myOrderDetail.do">취소하기</a>
+              <button type="submit" id="btnSubmit" class="site-btn">등록하기</button>
             </div>
           </td>
         </tr>
@@ -94,18 +95,41 @@
 </div>
 
 <script>
-  function validateReview(form){
-    var txt = form.reviewDetail ? form.reviewDetail.value.trim() : '';
-    if (txt.length < 10) {
-      alert('상세리뷰를 10자 이상 입력해 주세요.');
-      if (form.reviewDetail) form.reviewDetail.focus();
-      return false;
-    }
-    var files = form.reviewImages && form.reviewImages.files ? form.reviewImages.files : null;
-    if (files && files.length > 3) {
-      alert('이미지는 최대 3장까지 업로드할 수 있습니다.');
-      return false;
-    }
-    return true;
-  }
+document.getElementById('btnSubmit').addEventListener('click', async () => {
+	  const form = document.getElementById('reviewForm');
+	  const files = document.getElementById('reviewImages').files;
+
+	  // 검증
+	  const detail = form.querySelector('[name="reviewDetail"]')?.value.trim() || '';
+	  if (detail.length < 10) { alert('상세리뷰를 10자 이상 입력해 주세요.'); return; }
+	  if (files.length > 3)   { alert('이미지는 최대 3장까지 업로드할 수 있습니다.'); return; }
+
+	  // FormData 구성 (일반 필드들 먼저)
+	  const fd = new FormData();
+	  fd.append('orderNo',  form.orderNo.value);
+	  fd.append('itemCode', form.itemCode.value);
+	  fd.append('starPoint', form.starPoint.value);      // 선택된 radio의 value
+	  fd.append('reviewDetail', detail);
+
+	  // 파일을 img1, img2, img3 라는 서로 다른 name으로 첨부
+	  for (let i = 0; i < Math.min(files.length, 3); i++) {
+	    fd.append('img' + (i + 1), files[i]);
+	  }
+
+	  try {
+	    const resp = await fetch(form.action, { method: 'POST', body: fd }); // Content-Type 자동 설정
+	    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+	    // 서버가 JSON으로 주면:
+	    // const json = await resp.json();
+	    // if (json.retCode === 'OK') location.href = 'myOrderDetail.do';
+
+	    // 서버가 redirect 대신 OK 텍스트만 줄 경우:
+	    const text = await resp.text();
+	    // 성공 판단 로직에 맞게 분기
+	    location.href = 'myOrderDetail.do';
+	  } catch (e) {
+	    console.error(e); alert('업로드 중 오류가 발생했습니다.');
+	  }
+	});
 </script>

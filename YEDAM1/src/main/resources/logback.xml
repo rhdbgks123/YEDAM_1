@@ -24,6 +24,14 @@
 	<level value="debug" />
   </logger>
   
+  <logger name="com.yedam.mapper.OrderMapper">
+	<level value="debug" />
+  </logger>
+  
+  <logger name="com.yedam.mapper.OrderDetailMapper">
+	<level value="debug" />
+  </logger>
+  
   
   <root level="error">
     <appender-ref ref="stdout"/>

@@ -14,4 +14,8 @@ public class ReviewVO {
 	private String createdBy;
 	private String updatedBy;
 	private String userId;
+	private String title;
+	private String content;
+	private String image;
+	private String writer;
 }
