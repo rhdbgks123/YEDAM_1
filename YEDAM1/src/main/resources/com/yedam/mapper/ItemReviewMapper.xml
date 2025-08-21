@@ -3,34 +3,36 @@
 <mapper namespace="com.yedam.mapper.ItemReviewMapper">
 
 	<insert id="registerReview" parameterType="com.yedam.vo.ReviewVO">
-		INSERT ALL
-		 INTO TB_ITEM_REVIEW (
-			review_seq,
-			item_code,
-			star_point,
-			reviewDetail,
-			created_By,
-			updated_By)
-		 VALUES (
-			seq_tb_item_review.NEXTVAL,
-			#{itemCode},
-			#{starPoint},
-			#{reviewDetail},
-			#{userId},
-			#{userId})
-	     <if test="image != null and image != ''">
-			INTO TB_ITEM_REVIEW_IMAGE (
-				review_seq,
-				REVIEW_IMAGE,
-				CREATED_BY,
-				UPDATED_BY) 
-			VALUES (
-				seq_tb_item_review.CURRVAL,
-				#{image},
-				#{userId},
-				#{userId})
-		 </if>
-		  SELECT 1 FROM dual
+	  <selectKey keyProperty="reviewSeq" resultType="int" order="BEFORE">
+        SELECT seq_tb_item_review.NEXTVAL FROM dual
+      </selectKey>
+		INSERT INTO TB_ITEM_REVIEW (
+    				review_seq,
+    				item_code,
+    				star_point,
+    				reviewDetail,
+    				created_By,
+    				updated_By)
+    	VALUES (
+    				#{reviewSeq},
+    				#{itemCode},
+    				#{starPoint},
+    				#{reviewDetail},
+    				#{userId},
+    				#{userId})
+	</insert>
+	
+	<insert id="registerReviewImage">
+		INSERT INTO TB_ITEM_REVIEW_IMAGE (
+    				review_seq,
+    				review_image,
+    				created_by,
+    				updated_by)
+    	VALUES (
+   					#{reviewSeq},
+   					#{image},
+   					#{userId},
+   					#{userId})
 	</insert>
 	
 </mapper>

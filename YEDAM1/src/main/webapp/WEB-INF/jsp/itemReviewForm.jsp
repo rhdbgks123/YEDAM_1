@@ -5,10 +5,11 @@
 <!DOCTYPE html>
 
 <link href="./css/itemReview.css" rel="stylesheet" />
+<div class="page-container">
 <c:set var="curDate" value="${empty orderHeader.ORDERDATE ? '' : orderHeader.ORDERDATE}" />
-<h3 style="margin-top:24px;">${curDate} 주문 내역</h3>
-<div class="order-box" style="border:1px solid #e6e9ef;border-radius:12px;margin:12px 0;overflow:hidden;">
-    <div class="order-head" style="display:flex;justify-content:space-between;padding:12px 16px;background:#f3f5f9;font-weight:600;">
+<h3 class="page-title">주문 일자 : ${curDate} </h3>
+  <div class="order-box">
+    <div class="order-head">
       <div>주문번호: <strong>${orderNo}</strong></div>
     </div>
     
@@ -16,26 +17,37 @@
       <table>
         <thead>
           <tr>
-            <th style="width:44%">상품명</th>
-            <th style="width:12%">수량</th>
+            <th style="width:20%">상품</th>
+            <th style="width:36%">스펙</th>
             <th style="width:16%">가격</th>
+            <th style="width:12%">수량</th>
             <th style="width:16%">총액</th>
           </tr>
         </thead>
         <tbody>
-          <c:forEach var="d" items="${list}">
             <tr>
-              <td style="text-align:left">${d.itemName}</td>
-              <td>${d.itemQty}</td>
-              <td>₩<fmt:formatNumber value="${d.itemPrice}" type="number"/></td>
-              <td>₩<fmt:formatNumber value="${d.itemQty * d.itemPrice}" type="number"/></td>
+              <td class="prod-cell">
+               <div class="prod">
+                <c:choose>
+				  <c:when test="${not empty item.itemImage}">
+				    <img src="img/featured/${item.itemImage}" alt="${item.itemName}" class="thumb">
+				  </c:when>
+				  <c:otherwise>
+				    <img src="img/cart/cart-2.jpg" alt="${item.itemName}" class="thumb">
+				  </c:otherwise>
+			    </c:choose>
+               </div>
+			  </td>
+              <td><h5>${item.itemName}</h5>${item.itemName} 스펙</td>
+              <td>₩<fmt:formatNumber value="${item.itemPrice}" type="number"/></td>
+              <td>${item.itemQty}</td>
+              <td>₩<fmt:formatNumber value="${item.itemQty * item.itemPrice}" type="number"/></td>
             </tr>
-          </c:forEach>
         </tbody>
       </table>
     </div>
 
-    <div style="padding:10px 16px; color:#666;">
+    <div class="address-row">
       배송지: ${orderHeader.ADDRESS}
     </div>
   </div>
@@ -44,8 +56,7 @@
   <div class="head">리뷰 작성</div>
   <div class="body">
   
-    <form id="reviewForm" action="itemReview.do" method="post" enctype="multipart/form-data"
-      onsubmit="return validateReview(this)">
+    <form id="reviewForm" action="itemReview.do" method="post" enctype="multipart/form-data">
 
         <input type="hidden" name="orderNo"  value="${orderNo}">
         <input type="hidden" name="itemCode" value="${itemCode}">
@@ -75,7 +86,7 @@
         <tr>
           <th>사진첨부</th>
           <td>
-            <input type="file" name="reviewImages" accept="image/*" multiple>
+            <input type="file" id="reviewImages" name="reviewImages" accept="image/*" multiple>
             <div style="color:#888; font-size:13px; margin-top:6px;">최대 3장 업로드 가능합니다.</div>
           </td>
         </tr>
@@ -85,19 +96,21 @@
           <td>
             <div class="action-row">
               <a href="myOrderDetail.do">취소하기</a>
-              <button type="submit" id="btnSubmit" class="site-btn">등록하기</button>
+              <button type="button" id="btnSubmit" class="site-btn">등록하기</button>
             </div>
           </td>
         </tr>
       </table>
     </form>
   </div>
+  </div>
 </div>
 
 <script>
 document.getElementById('btnSubmit').addEventListener('click', async () => {
 	  const form = document.getElementById('reviewForm');
-	  const files = document.getElementById('reviewImages').files;
+	  const input = document.getElementById('reviewImages'); 
+	  const files = Array.from(input.files);
 
 	  // 검증
 	  const detail = form.querySelector('[name="reviewDetail"]')?.value.trim() || '';

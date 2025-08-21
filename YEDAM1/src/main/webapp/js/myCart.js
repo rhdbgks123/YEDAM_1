@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		let selected = document.querySelectorAll('input[name="selectItem"]:checked');
 		
 		if(selected.length == 0){
-			alert('상품을 선택하세요');
+			alert('결제할 상품을 선택해 주세요');
 			return;
 		}
 		
@@ -162,11 +162,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				.then(resp => resp.json())
 				.then(result => {
 					if (result.retCode == "OK") {
-						alert("삭제성공");
+						alert("장바구니에서 삭제했습니다.");
 						location.reload(true);
 					}
 					else {
-						alert("실패")
+						alert("삭제를 실패하였습니다.")
 					}
 				})
 				.catch(err => console.error(err))
