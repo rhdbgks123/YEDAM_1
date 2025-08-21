@@ -47,7 +47,7 @@
 										</c:choose>
 										</a>
 										</td>
-										<td class="shoping_cart_spec"><h5>${c.itemName }</h5>스펙이 들어와야해</td>
+										<td class="shoping_cart_spec"><h5>${c.itemName }</h5>${c.itemName} 스펙</td>
 										<td class="shoping_cart_price"><span class="itemPrice">
 												<fmt:formatNumber
 													value="${c.salePrice != 0 ? c.salePrice : c.price}" />
