@@ -66,9 +66,9 @@
           <th>별점</th>
           <td>
             <div class="star-rating">
-              <input type="radio" id="star5" name="starPoint" value="5"><label for="star5" title="5점">★</label>
+              <input type="radio" id="star5" name="starPoint" value="5" checked><label for="star5" title="5점">★</label>
               <input type="radio" id="star4" name="starPoint" value="4"><label for="star4" title="4점">★</label>
-              <input type="radio" id="star3" name="starPoint" value="3" checked><label for="star3" title="3점">★</label>
+              <input type="radio" id="star3" name="starPoint" value="3"><label for="star3" title="3점">★</label>
               <input type="radio" id="star2" name="starPoint" value="2"><label for="star2" title="2점">★</label>
               <input type="radio" id="star1" name="starPoint" value="1"><label for="star1" title="1점">★</label>
             </div>
@@ -92,8 +92,7 @@
         </tr>
 
         <tr>
-          <th></th>
-          <td>
+          <td colspan="2">
             <div class="action-row">
               <a href="myOrderDetail.do">취소하기</a>
               <button type="button" id="btnSubmit" class="site-btn">등록하기</button>

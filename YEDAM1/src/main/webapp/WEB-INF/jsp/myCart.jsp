@@ -35,14 +35,14 @@
 									<tr style="text-align: center">
 										<td><input type="checkbox" name="selectItem"
 											value="${c.itemCode }"></td>
-										<td class="shoping_cart_item">
+										<td class="shoping_cart_item" style="padding: 10px">
 										<a href="itemDetailView.do?itemCode=${c.itemCode}">
 										<c:choose>
 										  <c:when test="${not empty c.itemImage}">
-  										    <img src="img/featured/${c.itemImage}" alt="${c.itemName}">
+  										    <img src="img/featured/${c.itemImage}" alt="${c.itemName}" style="width:68px, height:68px">
 										  </c:when>
 										  <c:otherwise>
-  										    <img src="img/cart/cart-2.jpg" alt="${c.itemName}">
+  										    <img src="img/cart/cart-2.jpg" alt="${c.itemName}" style="width:68px, height:68px">
 										  </c:otherwise>
 										</c:choose>
 										</a>

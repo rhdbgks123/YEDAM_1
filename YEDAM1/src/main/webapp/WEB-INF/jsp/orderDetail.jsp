@@ -32,14 +32,14 @@
         <tbody>
           <c:forEach var="d" items="${h.details}">
             <tr>
-			  <td class="shoping_cart_item">
+			  <td class="shoping_cart_item" style="padding:10px">
 			    <a href="itemDetailView.do?itemCode=${d.itemCode}">
 			    <c:choose>
 				<c:when test="${not empty d.itemImage}">
-				  <img src="img/featured/${d.itemImage}" alt="${d.itemName}">
+				  <img src="img/featured/${d.itemImage}" alt="${d.itemName}" style="width:68px, height:68px">
 				</c:when>
 				<c:otherwise>
-				  <img src="img/cart/cart-2.jpg" alt="${d.itemName}">
+				  <img src="img/cart/cart-2.jpg" alt="${d.itemName}" style="width:68px, height:68px">
 				</c:otherwise>
 			    </c:choose></a>
 			  </td>
