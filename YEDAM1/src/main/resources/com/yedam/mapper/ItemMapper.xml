@@ -123,32 +123,30 @@ order by  af.views desc
        order by item_image
 	</select>
 	
-	<select id = "reviewList" parameterType="map" resultType = "review">
-     select d.*
-       from   (select  rownum rn,
+	<select id = "reviewList" parameterType="map" resultType = "String">
+	
+	select d.review_json
+    from   (select  rownum rn,
                        c.*
-                 from    (select    
-		                          b.review_seq,
-		                          b.star_point,
-		                          b.reviewdetail,
-		                          b.create_date, 
-		                          b.created_by,
-		                          b.update_date,
-		                          b.updated_by,
-		                          a.review_image_number
-                            from   (select review_seq,
-                                           COUNT(review_image) AS review_image_number               
-                                      from   tb_item_review_image
-                                    group by review_seq ) a
-                                    right join tb_item_review b
-                                    on a.review_seq = b.review_seq
-                                    where item_code = #{bno}
-                                    order by create_date desc) c 
-                ) d
-where d.rn > (#{page} -1) * 5
-<![CDATA[
-and d.rn <= #{page} * 5
-]]>
+            from      ( SELECT JSON_OBJECT(
+                             'reviewSeq' VALUE r.review_seq,
+                             'reviewDetail' VALUE r.reviewdetail,
+                             'starPoint' VALUE r.star_point,                             
+                             'createdBy' VALUE r.created_by,
+                             'createDate' VALUE r.create_date,
+                             'images' VALUE COALESCE(JSON_ARRAYAGG(i.review_image), JSON_ARRAY())
+                             ) AS review_json
+	                    FROM tb_item_review r
+	                    LEFT JOIN tb_item_review_image i
+	                           ON r.review_seq = i.review_seq
+	                    where item_code = #{bno}       
+	                    GROUP BY r.review_seq, r.reviewdetail, r.star_point, r.created_by, r.create_date
+	                    order by r.create_date desc) c )d
+	where d.rn > (#{page} -1) * 5
+	<![CDATA[
+	and d.rn <= #{page} * 5
+	]]>
+     
 	</select>
 	
 	<select id="selectCount" parameterType="String" resultType="int">

@@ -160,12 +160,12 @@ ul {
 
                               </div>
               </div>
-    <img class="col-lg-12 col-md-6 col-sm-6" src="img/banner/testkuanggo2.JPG">
+    <!-- <img class="col-lg-12 col-md-6 col-sm-6" src="img/banner/testkuanggo2.JPG"> -->
   </div>
 </div>
 
 <div class="col-lg-12">
-	<div class="product__details__tab">
+	<div class="product__details__tab" style="padding-top: 0px"><!-- class="product__details__tab" -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="nav-item"><a class="nav-link active"
 				data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">상세정보</a>
