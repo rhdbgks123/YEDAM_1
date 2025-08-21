@@ -20,9 +20,7 @@
                         <h6>Useful Links</h6>
                         <ul>
                             <li><a href="https://www.pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS217&mCode=D010030000&nttId=7034" target='_blank'>개인정보 보호방침</a></li>
-                            <li><a href="#">중간프로젝트 1팀</a></li>
-                            <li><a href="#">공사중</a></li>
-                            <li><a href="#">공사중</a></li>
+                            <li><a href="#">중간프로젝트 1팀</a></li>                            
                             <li><a href="https://www.instagram.com/yedam_it/" target='_blank'>INSTARGRAM</a></li>
                             <li><a href="https://naver.me/5no5xDRF" target='_blank'>찾아오시는 길</a></li>
                         </ul>

@@ -9,18 +9,16 @@
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="featured__item">
 
-					<a href="itemDetailView.do?itemCode=${items.itemCode }"><img src="img/featured/${items.itemImage}"></a>
 					<div class="row">
-						<div class="featured__item__text col-6">
-							<h6>${items.itemName}</h6>
-							<i class="fa fa-heart"></i><span>${items.reviewStarPointAvg}</span><i
+						<div class="featured__item__text col-12">
+					        <a href="itemDetailView.do?itemCode=${items.itemCode }"><img style="height:197.5px" src="img/featured/${items.itemImage}"></a>
+							<h6 style="margin-top:15px;">${items.itemName}</h6>
+							<h6>${items.price}원</h6>
+							<i class="fa fa-heart"></i><span>${items.reviewStarPointAvg}&emsp;&emsp;</span><i
 								class="fa fa-pencil"></i><span>${items.reviewCnt}</span>
 
 						</div>
-						<div class="featured__item__text col-6">
-							<h6>판매금액</h6>
-							<h6>${items.price}원</h6>
-						</div>
+						
 					</div>
 					
 				</div>
